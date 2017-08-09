@@ -2,7 +2,6 @@ package xyz.android.amrro.recipes.di;
 
 import android.app.Application;
 
-import com.github.simonpercic.oklog3.OkLogInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -22,6 +21,7 @@ import xyz.android.amrro.recipes.utils.retrofit.LiveDataCallAdapterFactory;
  *
  * Main Dependencies for API
  */
+@SuppressWarnings("WeakerAccess")
 @Module
 public class NetModule {
 
@@ -34,21 +34,9 @@ public class NetModule {
 
     @Singleton
     @Provides
-    public OkLogInterceptor provideOkLogInterceptor() {
-        return new OkLogInterceptor.Builder()
-                .shortenInfoUrl(true)
-                .withAllLogData()
-                .useAndroidLog(true)
-                .build();
-    }
-
-
-    @Singleton
-    @Provides
-    public OkHttpClient provideOkHttpClient(OkLogInterceptor logInterceptor) {
+    public OkHttpClient provideOkHttpClient() {
         return new OkHttpClient.Builder()
                 .retryOnConnectionFailure(true)
-                .addInterceptor(logInterceptor)
                 .build();
     }
 
