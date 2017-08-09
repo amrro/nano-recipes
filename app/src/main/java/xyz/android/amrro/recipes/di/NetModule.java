@@ -1,6 +1,6 @@
 package xyz.android.amrro.recipes.di;
 
-import android.support.annotation.NonNull;
+import android.app.Application;
 
 import com.github.simonpercic.oklog3.OkLogInterceptor;
 import com.google.gson.FieldNamingPolicy;
@@ -14,7 +14,9 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import xyz.android.amrro.recipes.R;
 import xyz.android.amrro.recipes.data.api.RecipesService;
+import xyz.android.amrro.recipes.utils.retrofit.LiveDataCallAdapterFactory;
 
 /**
  * Created by amrro <amr.elghobary@gmail.com> on 7/22/17.
@@ -23,13 +25,6 @@ import xyz.android.amrro.recipes.data.api.RecipesService;
  */
 @Module
 public class NetModule {
-
-    @NonNull
-    private String url;
-
-    public NetModule(@NonNull String url) {
-        this.url = url;
-    }
 
 
     @Singleton
@@ -62,10 +57,11 @@ public class NetModule {
 
     @Singleton
     @Provides
-    public RecipesService provideMoviesService(OkHttpClient client, Gson gson) {
+    public RecipesService provideMoviesService(Application application, OkHttpClient client, Gson gson) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl(url)
+                .addCallAdapterFactory(new LiveDataCallAdapterFactory())
+                .baseUrl(application.getString(R.string.api_url))
                 .client(client)
                 .build()
                 .create(RecipesService.class);

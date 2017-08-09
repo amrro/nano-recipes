@@ -12,6 +12,8 @@ import dagger.Provides;
 
 /**
  * Created by amrro <amr.elghobary@gmail.com> on 7/22/17.
+ *
+ * Needed dependencies for some android components.
  */
 @Module
 public class AppModule {

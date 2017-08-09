@@ -11,10 +11,11 @@ import dagger.android.HasActivityInjector;
 import timber.log.Timber;
 import xyz.android.amrro.recipes.di.AppModule;
 import xyz.android.amrro.recipes.di.DaggerAppComponent;
-import xyz.android.amrro.recipes.di.NetModule;
 
 /**
  * Created by amrro <amr.elghobary@gmail.com> on 7/22/17.
+ *
+ * Initialize main objects for whole application.
  */
 
 public final class RecipesApp extends Application implements HasActivityInjector {
@@ -32,10 +33,8 @@ public final class RecipesApp extends Application implements HasActivityInjector
 
         DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
-                .netModule(new NetModule("https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/"))
                 .build()
                 .inject(this);
-
     }
 
     @Override

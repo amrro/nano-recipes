@@ -2,14 +2,16 @@ package xyz.android.amrro.recipes.di;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
-import xyz.android.amrro.recipes.ui.main.MainFragment;
+import xyz.android.amrro.recipes.ui.steps.StepsFragment;
 
 /**
  * Created by amrro <amr.elghobary@gmail.com> on 7/22/17.
+ *
+ * injects {@link android.support.v4.app.Fragment}s
  */
 @Module
 public abstract class FragmentsModule {
 
     @ContributesAndroidInjector
-    public abstract MainFragment contributesHomeFragment();
+    abstract StepsFragment contributesStepsFragment();
 }
