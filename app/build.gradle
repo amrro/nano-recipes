@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "xyz.android.amrro.recipes"
         minSdkVersion 21
@@ -20,10 +20,11 @@ android {
 }
 
 ext {
-    supportLibVersion = '25.4.0'
+    supportLibVersion = '26.0.1'
     retrofit = '2.3.0'
     okhttp_version = '3.8.0'
     dagger_version = "2.11"
+    arch_version = '1.0.0-alpha8'
 }
 
 dependencies {
@@ -34,6 +35,12 @@ dependencies {
     implementation "com.android.support:palette-v7:${supportLibVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.jakewharton.timber:timber:4.5.1'
+    // Arch
+    implementation "android.arch.lifecycle:runtime:$arch_version"
+    implementation "android.arch.lifecycle:extensions:$arch_version"
+    implementation "android.arch.persistence.room:runtime:$arch_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
+    annotationProcessor "android.arch.persistence.room:compiler:$arch_version"
     // API
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
