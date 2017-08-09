@@ -15,7 +15,8 @@ import dagger.Provides;
  *
  * Needed dependencies for some android components.
  */
-@Module
+@SuppressWarnings("WeakerAccess")
+@Module(includes = ViewModelModule.class)
 public class AppModule {
 
     @NonNull
