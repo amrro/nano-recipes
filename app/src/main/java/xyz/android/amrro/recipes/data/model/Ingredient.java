@@ -7,13 +7,13 @@ import java.util.Objects;
 public class Ingredient {
 
     @NonNull
-    private final Integer quantity;
+    private final Double quantity;
     @NonNull
     private final String measure;
     @NonNull
     private final String ingredient;
 
-    public Ingredient(@NonNull Integer quantity,
+    public Ingredient(@NonNull Double quantity,
                       @NonNull String measure,
                       @NonNull String ingredient) {
         Objects.requireNonNull(quantity, "quantity cannot be null!");
@@ -26,7 +26,7 @@ public class Ingredient {
     }
 
     @NonNull
-    public Integer getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 

@@ -3,7 +3,6 @@ package xyz.android.amrro.recipes.di;
 import android.app.Application;
 
 import com.github.simonpercic.oklog3.OkLogInterceptor;
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -30,9 +29,7 @@ public class NetModule {
     @Singleton
     @Provides
     public Gson provideGson() {
-        return new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .create();
+        return new GsonBuilder().create();
     }
 
     @Singleton
