@@ -51,12 +51,12 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.jakewharton.timber:timber:4.5.1'
 
+    implementation 'com.github.bumptech.glide:glide:4.0.0'
     // Arch
     implementation "android.arch.lifecycle:runtime:$arch_version"
     implementation "android.arch.lifecycle:extensions:$arch_version"
     implementation "android.arch.persistence.room:runtime:$arch_version"
     annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
-    annotationProcessor "android.arch.persistence.room:compiler:$arch_version"
 
     // API
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
@@ -68,23 +68,18 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     implementation "com.google.dagger:dagger-android:$dagger_version"
     implementation 'com.google.dagger:dagger-android-support:2.11'
-    compile 'com.github.simonpercic:oklog3:2.1.0'
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
-
     testImplementation 'junit:junit:4.12'
     testImplementation "org.mockito:mockito-core:$mockito_version"
-    testCompile ("android.arch.core:core-testing:$arch_version", {
+    testCompile("android.arch.core:core-testing:$arch_version", {
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-core-utils'
     })
-
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     androidTestImplementation "org.mockito:mockito-android:$mockito_version"
-
 }

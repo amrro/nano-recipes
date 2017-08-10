@@ -29,10 +29,10 @@
                 android:layout_width="0dp"
                 android:layout_height="213dp"
                 android:scaleType="centerCrop"
+                android:src="@mipmap/cooking_card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/cooking_card"
                 tools:ignore="ContentDescription" />
 
             <TextView

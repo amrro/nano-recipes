@@ -27,6 +27,8 @@ import static android.support.v4.app.NavUtils.navigateUpFromSameTask;
  */
 public class RecipeActivity extends AppCompatActivity {
 
+    public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
+
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
