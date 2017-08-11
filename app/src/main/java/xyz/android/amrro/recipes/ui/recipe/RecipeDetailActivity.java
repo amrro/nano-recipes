@@ -33,11 +33,12 @@ import static android.support.v4.app.NavUtils.navigateUpFromSameTask;
 public class RecipeDetailActivity extends AppCompatActivity implements LifecycleRegistryOwner {
 
     public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
+    public static String KEY_RECIPE_NAME = "KEY_RECIPE_NAME";
     public boolean mTwoPane;
+    public Integer recipeId;
     @Inject
     ViewModelProvider.Factory viewModelFactory;
     private ActivityRecipeDetailBinding binding;
-    private Integer recipeId;
     private LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
 
     @Override
@@ -46,17 +47,13 @@ public class RecipeDetailActivity extends AppCompatActivity implements Lifecycle
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_recipe_detail);
 
+        setSupportActionBar(binding.toolbar);
         if (getIntent() != null) {
             recipeId = getIntent().getIntExtra(KEY_RECIPE_ID, -1);
+            //noinspection ConstantConditions
+            getSupportActionBar().setTitle(getIntent().getStringExtra(KEY_RECIPE_NAME));
         }
 
-        if (recipeId.equals(-1)) {
-            throw new IllegalArgumentException("Recipe id cannot be -1");
-        }
-
-        // TODO: 8/11/17 user later to update title
-        setSupportActionBar(binding.toolbar);
-        binding.toolbar.setTitle(getTitle());
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -66,6 +63,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements Lifecycle
 
         mTwoPane = binding.include.stepDetailContainer != null;
 
+        //noinspection ConstantConditions
         ViewModelProviders.of(this, viewModelFactory)
                 .get(SingleRecipeViewModel.class)
                 .setId(recipeId)

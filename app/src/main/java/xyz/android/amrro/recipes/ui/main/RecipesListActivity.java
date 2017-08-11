@@ -13,6 +13,7 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
 import xyz.android.amrro.recipes.R;
+import xyz.android.amrro.recipes.data.model.Recipe;
 import xyz.android.amrro.recipes.databinding.ActivityRecipesListBinding;
 import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
 
@@ -35,9 +36,10 @@ public class RecipesListActivity extends LifecycleActivity {
                 .observe(this, response -> {
                     if (response != null && response.isSuccessful()) {
                         binding.grid.setAdapter(
-                                new RecipesAdapter(response.getData(), id -> {
+                                new RecipesAdapter(response.getData(), recipe -> {
                                     Intent intent = new Intent(this, RecipeDetailActivity.class);
-                                    intent.putExtra(RecipeDetailActivity.KEY_RECIPE_ID, id);
+                                    intent.putExtra(RecipeDetailActivity.KEY_RECIPE_ID, recipe.getId());
+                                    intent.putExtra(RecipeDetailActivity.KEY_RECIPE_NAME, recipe.getName());
                                     startActivity(intent);
                                 }));
                     }
@@ -45,6 +47,6 @@ public class RecipesListActivity extends LifecycleActivity {
     }
 
     interface OnRecipeClickedListener {
-        void onRecipeClicked(@NonNull final Integer id);
+        void onRecipeClicked(@NonNull final Recipe recipe);
     }
 }

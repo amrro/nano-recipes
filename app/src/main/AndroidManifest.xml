@@ -23,7 +23,6 @@
         </activity>
         <activity
             android:name=".ui.recipe.RecipeDetailActivity"
-            android:label="@string/title_step_list"
             android:parentActivityName=".ui.main.RecipesListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

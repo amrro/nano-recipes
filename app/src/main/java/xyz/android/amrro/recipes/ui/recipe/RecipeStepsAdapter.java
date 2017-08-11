@@ -48,7 +48,8 @@ public class RecipeStepsAdapter
         holder.binding.getRoot().setOnClickListener(view -> {
             if (recipeDetailActivity.mTwoPane) {
                 Bundle arguments = new Bundle();
-                arguments.putInt(StepDetailFragment.ARG_ITEM_ID, holder.binding.getStep().getId());
+                arguments.putInt(StepDetailFragment.ARG_STEP_ID, holder.binding.getStep().getId());
+                arguments.putInt(StepDetailFragment.ARG_RECIPE_ID, recipeDetailActivity.recipeId);
                 StepDetailFragment fragment = new StepDetailFragment();
                 fragment.setArguments(arguments);
                 recipeDetailActivity.getSupportFragmentManager().beginTransaction()
@@ -57,7 +58,8 @@ public class RecipeStepsAdapter
             } else {
                 Context context = view.getContext();
                 Intent intent = new Intent(context, StepDetailActivity.class);
-                intent.putExtra(StepDetailFragment.ARG_ITEM_ID, holder.binding.getStep().getId());
+                intent.putExtra(StepDetailFragment.ARG_STEP_ID, holder.binding.getStep().getId());
+                intent.putExtra(StepDetailFragment.ARG_RECIPE_ID, recipeDetailActivity.recipeId);
                 context.startActivity(intent);
             }
         });

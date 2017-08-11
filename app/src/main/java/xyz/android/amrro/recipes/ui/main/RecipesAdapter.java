@@ -38,7 +38,7 @@ public final class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.Re
     @Override
     public void onBindViewHolder(RecipeViewHolder holder, int position) {
         final Recipe recipe = data.get(position);
-        holder.binding.getRoot().setOnClickListener(view -> listener.onRecipeClicked(recipe.getId()));
+        holder.binding.getRoot().setOnClickListener(view -> listener.onRecipeClicked(recipe));
         holder.bind(recipe);
     }
 

@@ -29,12 +29,13 @@ public final class StepsViewModel extends ViewModel {
     }
 
 
-    public void setId(@NonNull final Integer id) {
+    public StepsViewModel setId(@NonNull final Integer id) {
         Objects.requireNonNull(id, "id cannot be null ");
         if (Objects.equals(this.id.getValue(), id)) {
-            return;
+            return this;
         }
         this.id.setValue(id);
+        return this;
     }
 
     @NonNull
@@ -45,5 +46,16 @@ public final class StepsViewModel extends ViewModel {
     @NonNull
     public LiveData<List<Ingredient>> ingredient() {
         return ingredient;
+    }
+
+    public LiveData<Step> step(@NonNull final Integer stepId) {
+        return Transformations.map(this.steps, steps -> {
+            if (steps != null) {
+                for (Step step : steps) {
+                    if (step.getId().equals(stepId)) return step;
+                }
+            }
+            return null;
+        });
     }
 }

@@ -1,18 +1,22 @@
 package xyz.android.amrro.recipes.ui.steps;
 
 import android.app.Activity;
+import android.arch.lifecycle.LifecycleFragment;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
 import xyz.android.amrro.recipes.R;
+import xyz.android.amrro.recipes.data.model.Step;
 import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
-import xyz.android.amrro.recipes.ui.recipe.dummy.DummyContent;
 
 /**
  * A fragment representing a single Step detail screen.
@@ -20,54 +24,21 @@ import xyz.android.amrro.recipes.ui.recipe.dummy.DummyContent;
  * in two-pane mode (on tablets) or a {@link StepDetailActivity}
  * on handsets.
  */
-public class StepDetailFragment extends Fragment {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
-    public static final String ARG_ITEM_ID = "item_id";
+public class StepDetailFragment extends LifecycleFragment {
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
-    private DummyContent.DummyItem mItem;
+    public static final String ARG_STEP_ID = "item_id";
+    public static final String ARG_RECIPE_ID = "recipe_id";
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+
     public StepDetailFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-
-            Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
-            }
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.step_detail, container, false);
-
-        // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.step_detail)).setText(mItem.details);
-        }
-
-        return rootView;
+        return inflater.inflate(R.layout.step_detail, container, false);
     }
 
     @SuppressWarnings("deprecation")
@@ -75,5 +46,25 @@ public class StepDetailFragment extends Fragment {
     public void onAttach(Activity activity) {
         AndroidSupportInjection.inject(this);
         super.onAttach(activity);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (getArguments().containsKey(ARG_STEP_ID) && getArguments().containsKey(ARG_RECIPE_ID)) {
+            ViewModelProviders.of(this, viewModelFactory).get(StepsViewModel.class)
+                    .setId(getArguments().getInt(ARG_RECIPE_ID))
+                    .step(getArguments().getInt(ARG_STEP_ID)).observe(this, this::updateUI);
+        }
+    }
+
+    private void updateUI(final Step step) {
+        if (step != null) {
+            Activity activity = this.getActivity();
+            CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
+            if (appBarLayout != null) {
+                appBarLayout.setTitle(step.getShortDescription());
+            }
+        }
     }
 }
