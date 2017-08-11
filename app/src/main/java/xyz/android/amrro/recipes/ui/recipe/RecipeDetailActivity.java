@@ -18,7 +18,7 @@ import dagger.android.AndroidInjection;
 import xyz.android.amrro.recipes.R;
 import xyz.android.amrro.recipes.data.model.Step;
 import xyz.android.amrro.recipes.databinding.ActivityRecipeDetailBinding;
-import xyz.android.amrro.recipes.ui.steps.StepDetailActivity;
+import xyz.android.amrro.recipes.ui.steps.StepsSliderActivity;
 
 import static android.support.v4.app.NavUtils.navigateUpFromSameTask;
 
@@ -26,7 +26,7 @@ import static android.support.v4.app.NavUtils.navigateUpFromSameTask;
  * An activity representing a list of Steps. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link StepDetailActivity} representing
+ * lead to a {@link StepsSliderActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */

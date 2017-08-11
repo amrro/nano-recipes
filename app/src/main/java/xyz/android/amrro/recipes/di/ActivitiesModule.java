@@ -4,7 +4,7 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 import xyz.android.amrro.recipes.ui.main.RecipesListActivity;
 import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
-import xyz.android.amrro.recipes.ui.steps.StepDetailActivity;
+import xyz.android.amrro.recipes.ui.steps.StepsSliderActivity;
 
 /**
  * Created by amrro <amr.elghobary@gmail.com> on 7/22/17.
@@ -19,7 +19,7 @@ public abstract class ActivitiesModule {
     abstract RecipesListActivity contributesRecipesListActivity();
 
     @ContributesAndroidInjector
-    abstract StepDetailActivity contributesStepsActivity();
+    abstract StepsSliderActivity contributesStepsActivity();
 
     @ContributesAndroidInjector
     abstract RecipeDetailActivity contributesRecipeDetailActivity();

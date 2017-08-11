@@ -30,7 +30,7 @@
                 android:value="xyz.android.amrro.recipes.ui.main.RecipesListActivity" />
         </activity>
         <activity
-            android:name=".ui.steps.StepDetailActivity"
+            android:name=".ui.steps.StepsSliderActivity"
             android:label="@string/title_step_detail"
             android:parentActivityName=".ui.recipe.RecipeDetailActivity"
             android:theme="@style/AppTheme.NoActionBar">

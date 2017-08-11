@@ -49,7 +49,7 @@
                 android:paddingRight="16dp"
                 android:paddingTop="8dp"
                 android:text="@{step.shortDescription}"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
