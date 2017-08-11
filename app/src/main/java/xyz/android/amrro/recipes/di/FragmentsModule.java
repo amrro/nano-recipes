@@ -2,7 +2,7 @@ package xyz.android.amrro.recipes.di;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
-import xyz.android.amrro.recipes.ui.steps.StepsFragment;
+import xyz.android.amrro.recipes.ui.steps.StepDetailFragment;
 
 /**
  * Created by amrro <amr.elghobary@gmail.com> on 7/22/17.
@@ -13,5 +13,5 @@ import xyz.android.amrro.recipes.ui.steps.StepsFragment;
 public abstract class FragmentsModule {
 
     @ContributesAndroidInjector
-    abstract StepsFragment contributesStepsFragment();
+    abstract StepDetailFragment contributesStepsFragment();
 }

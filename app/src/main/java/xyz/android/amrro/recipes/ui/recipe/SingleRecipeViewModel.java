@@ -28,11 +28,12 @@ public final class SingleRecipeViewModel extends ViewModel {
         return recipe;
     }
 
-    public void setId(@NonNull final Integer id) {
+    public SingleRecipeViewModel setId(@NonNull final Integer id) {
         Objects.requireNonNull(id, "id cannot be null ");
         if (Objects.equals(this.id.getValue(), id)) {
-            return;
+            return this;
         }
         this.id.setValue(id);
+        return this;
     }
 }

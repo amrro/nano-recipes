@@ -2,90 +2,83 @@ package xyz.android.amrro.recipes.ui.recipe;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.List;
 
 import xyz.android.amrro.recipes.R;
-import xyz.android.amrro.recipes.ui.recipe.dummy.DummyContent;
-import xyz.android.amrro.recipes.ui.steps.StepsActivity;
-import xyz.android.amrro.recipes.ui.steps.StepsFragment;
+import xyz.android.amrro.recipes.data.model.Step;
+import xyz.android.amrro.recipes.databinding.StepListContentBinding;
+import xyz.android.amrro.recipes.ui.steps.StepDetailActivity;
+import xyz.android.amrro.recipes.ui.steps.StepDetailFragment;
 
 /**
  * Created by amrro <amr.elghobary@gmail.com> on 8/9/17.
+ * <p>
+ * to list steps of some recipe.
  */
 public class RecipeStepsAdapter
         extends RecyclerView.Adapter<RecipeStepsAdapter.ViewHolder> {
 
-    private final List<DummyContent.DummyItem> mValues;
-    private RecipeActivity recipeActivity;
+    private final List<Step> values;
+    private RecipeDetailActivity recipeDetailActivity;
 
-    public RecipeStepsAdapter(RecipeActivity recipeActivity, List<DummyContent.DummyItem> items) {
-        this.recipeActivity = recipeActivity;
-        mValues = items;
+    RecipeStepsAdapter(RecipeDetailActivity recipeDetailActivity, List<Step> steps) {
+        this.recipeDetailActivity = recipeDetailActivity;
+        values = steps;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.step_list_content, parent, false);
-        return new ViewHolder(view);
+        final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        final StepListContentBinding binding =
+                DataBindingUtil.inflate(inflater, R.layout.step_list_content, parent, false);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        final Step step = values.get(position);
+        holder.binding.setStep(step);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (recipeActivity.mTwoPane) {
-                    Bundle arguments = new Bundle();
-                    arguments.putString(StepsFragment.ARG_ITEM_ID, holder.mItem.id);
-                    StepsFragment fragment = new StepsFragment();
-                    fragment.setArguments(arguments);
-                    recipeActivity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.step_detail_container, fragment)
-                            .commit();
-                } else {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, StepsActivity.class);
-                    intent.putExtra(StepsFragment.ARG_ITEM_ID, holder.mItem.id);
-
-                    context.startActivity(intent);
-                }
+        holder.binding.getRoot().setOnClickListener(view -> {
+            if (recipeDetailActivity.mTwoPane) {
+                Bundle arguments = new Bundle();
+                arguments.putInt(StepDetailFragment.ARG_ITEM_ID, holder.binding.getStep().getId());
+                StepDetailFragment fragment = new StepDetailFragment();
+                fragment.setArguments(arguments);
+                recipeDetailActivity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.step_detail_container, fragment)
+                        .commit();
+            } else {
+                Context context = view.getContext();
+                Intent intent = new Intent(context, StepDetailActivity.class);
+                intent.putExtra(StepDetailFragment.ARG_ITEM_ID, holder.binding.getStep().getId());
+                context.startActivity(intent);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return values == null ? 0 : values.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyContent.DummyItem mItem;
+        final StepListContentBinding binding;
 
-        public ViewHolder(View view) {
-            super(view);
-            mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+        ViewHolder(StepListContentBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + binding.stepName.getText().toString() + "'";
         }
     }
 }

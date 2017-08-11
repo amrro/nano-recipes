@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.recipe.RecipeActivity"
+            android:name=".ui.recipe.RecipeDetailActivity"
             android:label="@string/title_step_list"
             android:parentActivityName=".ui.main.RecipesListActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -31,13 +31,13 @@
                 android:value="xyz.android.amrro.recipes.ui.main.RecipesListActivity" />
         </activity>
         <activity
-            android:name=".ui.steps.StepsActivity"
+            android:name=".ui.steps.StepDetailActivity"
             android:label="@string/title_step_detail"
-            android:parentActivityName=".ui.recipe.RecipeActivity"
+            android:parentActivityName=".ui.recipe.RecipeDetailActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="xyz.android.amrro.recipes.ui.recipe.RecipeActivity" />
+                android:value="xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity" />
         </activity>
     </application>
 

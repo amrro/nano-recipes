@@ -1,6 +1,5 @@
 package xyz.android.amrro.recipes.ui.main;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -19,15 +18,12 @@ import xyz.android.amrro.recipes.databinding.CartRecipeBinding;
 
 public final class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder> {
 
-    private Context context;
     private List<Recipe> data;
     private RecipesListActivity.OnRecipeClickedListener listener;
 
 
-    public RecipesAdapter(Context context,
-                          List<Recipe> data,
-                          RecipesListActivity.OnRecipeClickedListener listener) {
-        this.context = context;
+    RecipesAdapter(List<Recipe> data,
+                   RecipesListActivity.OnRecipeClickedListener listener) {
         this.data = data;
         this.listener = listener;
     }
@@ -62,10 +58,11 @@ public final class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.Re
         void bind(@NonNull final Recipe recipe) {
             Objects.requireNonNull(recipe, "recipe cannot be null.");
             binding.name.setText(recipe.getName());
-            if (!recipe.getImage().isEmpty())
+            if (!recipe.getImage().isEmpty()) {
                 Glide.with(binding.getRoot())
                         .load(recipe.getImage())
                         .into(binding.image);
+            }
         }
     }
 }

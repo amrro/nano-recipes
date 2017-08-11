@@ -18,15 +18,15 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import xyz.android.amrro.recipes.R;
-import xyz.android.amrro.recipes.ui.recipe.RecipeActivity;
+import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
 
 /**
  * An activity representing a single Step detail screen. This
  * activity is only used on narrow width devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link RecipeActivity}.
+ * in a {@link RecipeDetailActivity}.
  */
-public class StepsActivity extends AppCompatActivity implements HasSupportFragmentInjector {
+public class StepDetailActivity extends AppCompatActivity implements HasSupportFragmentInjector {
 
     @Inject
     DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
@@ -67,9 +67,9 @@ public class StepsActivity extends AppCompatActivity implements HasSupportFragme
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(StepsFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(StepsFragment.ARG_ITEM_ID));
-            StepsFragment fragment = new StepsFragment();
+            arguments.putString(StepDetailFragment.ARG_ITEM_ID,
+                    getIntent().getStringExtra(StepDetailFragment.ARG_ITEM_ID));
+            StepDetailFragment fragment = new StepDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.step_detail_container, fragment)
@@ -87,7 +87,7 @@ public class StepsActivity extends AppCompatActivity implements HasSupportFragme
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            navigateUpTo(new Intent(this, RecipeActivity.class));
+            navigateUpTo(new Intent(this, RecipeDetailActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

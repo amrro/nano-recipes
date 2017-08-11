@@ -11,16 +11,16 @@ import android.widget.TextView;
 
 import dagger.android.support.AndroidSupportInjection;
 import xyz.android.amrro.recipes.R;
-import xyz.android.amrro.recipes.ui.recipe.RecipeActivity;
+import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
 import xyz.android.amrro.recipes.ui.recipe.dummy.DummyContent;
 
 /**
  * A fragment representing a single Step detail screen.
- * This fragment is either contained in a {@link RecipeActivity}
- * in two-pane mode (on tablets) or a {@link StepsActivity}
+ * This fragment is either contained in a {@link RecipeDetailActivity}
+ * in two-pane mode (on tablets) or a {@link StepDetailActivity}
  * on handsets.
  */
-public class StepsFragment extends Fragment {
+public class StepDetailFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -36,7 +36,7 @@ public class StepsFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public StepsFragment() {
+    public StepDetailFragment() {
     }
 
     @Override

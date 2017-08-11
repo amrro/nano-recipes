@@ -3,7 +3,8 @@ package xyz.android.amrro.recipes.di;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 import xyz.android.amrro.recipes.ui.main.RecipesListActivity;
-import xyz.android.amrro.recipes.ui.steps.StepsActivity;
+import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
+import xyz.android.amrro.recipes.ui.steps.StepDetailActivity;
 
 /**
  * Created by amrro <amr.elghobary@gmail.com> on 7/22/17.
@@ -18,6 +19,8 @@ public abstract class ActivitiesModule {
     abstract RecipesListActivity contributesRecipesListActivity();
 
     @ContributesAndroidInjector
-    abstract StepsActivity contributesStepsActivity();
+    abstract StepDetailActivity contributesStepsActivity();
 
+    @ContributesAndroidInjector
+    abstract RecipeDetailActivity contributesRecipeDetailActivity();
 }

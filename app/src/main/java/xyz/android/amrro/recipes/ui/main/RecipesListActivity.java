@@ -14,10 +14,9 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjection;
 import xyz.android.amrro.recipes.R;
 import xyz.android.amrro.recipes.databinding.ActivityRecipesListBinding;
-import xyz.android.amrro.recipes.ui.recipe.RecipeActivity;
+import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
 
 public class RecipesListActivity extends LifecycleActivity {
-
     public static final int SPAN_COUNT = 1;
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -35,11 +34,12 @@ public class RecipesListActivity extends LifecycleActivity {
                 .getRecipes()
                 .observe(this, response -> {
                     if (response != null && response.isSuccessful()) {
-                        binding.grid.setAdapter(new RecipesAdapter(this, response.getData(), id -> {
-                            Intent intent = new Intent(this, RecipeActivity.class);
-                            intent.putExtra(RecipeActivity.KEY_RECIPE_ID, id);
-                            startActivity(intent);
-                        }));
+                        binding.grid.setAdapter(
+                                new RecipesAdapter(response.getData(), id -> {
+                                    Intent intent = new Intent(this, RecipeDetailActivity.class);
+                                    intent.putExtra(RecipeDetailActivity.KEY_RECIPE_ID, id);
+                                    startActivity(intent);
+                                }));
                     }
                 });
     }
@@ -47,5 +47,4 @@ public class RecipesListActivity extends LifecycleActivity {
     interface OnRecipeClickedListener {
         void onRecipeClicked(@NonNull final Integer id);
     }
-
 }
