@@ -36,4 +36,10 @@ public final class SingleRecipeViewModel extends ViewModel {
         this.id.setValue(id);
         return this;
     }
+
+    void retry() {
+        if (this.id.getValue() != null) {
+            this.id.setValue(this.id.getValue());
+        }
+    }
 }

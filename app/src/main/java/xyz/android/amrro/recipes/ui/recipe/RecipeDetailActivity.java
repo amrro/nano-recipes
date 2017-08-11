@@ -40,6 +40,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements Lifecycle
     ViewModelProvider.Factory viewModelFactory;
     private ActivityRecipeDetailBinding binding;
     private LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
+    private SingleRecipeViewModel model;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +66,16 @@ public class RecipeDetailActivity extends AppCompatActivity implements Lifecycle
         mTwoPane = binding.include.stepDetailContainer != null;
 
         //noinspection ConstantConditions
-        ViewModelProviders.of(this, viewModelFactory)
+        model = ViewModelProviders.of(this, viewModelFactory)
                 .get(SingleRecipeViewModel.class)
-                .setId(recipeId)
-                .recipe().observe(this, recipe -> setupRecyclerView(recipe.getSteps()));
+                .setId(recipeId);
+        model.recipe().observe(this, recipe -> {
+            if (recipe == null) {
+                model.retry();
+            } else {
+                setupRecyclerView(recipe.getSteps());
+            }
+        });
     }
 
     @Override
