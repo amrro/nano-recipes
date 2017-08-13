@@ -4,18 +4,27 @@ import android.app.Activity;
 import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
 import xyz.android.amrro.recipes.R;
 import xyz.android.amrro.recipes.data.model.Step;
+import xyz.android.amrro.recipes.databinding.FragmentStepsSliderBinding;
 import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
 
 /**
@@ -31,6 +40,9 @@ public class StepsSliderFragment extends LifecycleFragment {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
+
+    private FragmentStepsSliderBinding binding;
+    private PagerAdapter adapter;
 
     public StepsSliderFragment() {
     }
@@ -48,7 +60,8 @@ public class StepsSliderFragment extends LifecycleFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_steps_slider, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_steps_slider, container, false);
+        return binding.getRoot();
     }
 
     @SuppressWarnings("deprecation")
@@ -64,10 +77,38 @@ public class StepsSliderFragment extends LifecycleFragment {
         if (getArguments().containsKey(ARG_STEP_ID) && getArguments().containsKey(ARG_RECIPE_ID)) {
             ViewModelProviders.of(this, viewModelFactory).get(StepsViewModel.class)
                     .setId(getArguments().getInt(ARG_RECIPE_ID))
-                    .step(getArguments().getInt(ARG_STEP_ID)).observe(this, this::updateUI);
+                    .steps().observe(this, this::updateUI);
         }
     }
 
-    private void updateUI(final Step step) {
+    private void updateUI(final List<Step> steps) {
+        adapter = new StepsPagerAdapter(getFragmentManager(), steps);
+        binding.pager.setAdapter(adapter);
+        binding.pager.setCurrentItem(getArguments().getInt(ARG_STEP_ID));
     }
+
+    public class StepsPagerAdapter extends FragmentPagerAdapter {
+        private List<Step> steps;
+
+        StepsPagerAdapter(FragmentManager fm, @NonNull final List<Step> steps) {
+            super(fm);
+            Objects.requireNonNull(steps);
+            this.steps = steps;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            try {
+                return StepDetailsFragment.newInstance(steps.get(position));
+            } catch (IndexOutOfBoundsException out) {
+                return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return steps == null ? 0 : steps.size();
+        }
+    }
+
 }

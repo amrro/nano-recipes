@@ -43,7 +43,6 @@ public class RecipeStepsAdapter
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Step step = values.get(position);
         holder.binding.setStep(step);
-
         holder.binding.getRoot().setOnClickListener(view -> {
             if (recipeDetailActivity.mTwoPane) {
                 StepsSliderFragment fragment =
@@ -54,8 +53,8 @@ public class RecipeStepsAdapter
             } else {
                 Context context = view.getContext();
                 Intent intent = new Intent(context, StepsSliderActivity.class);
-                intent.putExtra(StepsSliderFragment.ARG_STEP_ID, holder.binding.getStep().getId());
                 intent.putExtra(StepsSliderFragment.ARG_RECIPE_ID, recipeDetailActivity.recipeId);
+                intent.putExtra(StepsSliderFragment.ARG_STEP_ID, holder.binding.getStep().getId());
                 context.startActivity(intent);
             }
         });

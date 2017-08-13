@@ -56,7 +56,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements Lifecycle
             getSupportActionBar().setTitle(getIntent().getStringExtra(KEY_RECIPE_NAME));
         }
 
-
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

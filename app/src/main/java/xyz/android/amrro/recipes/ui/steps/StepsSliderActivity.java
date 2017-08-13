@@ -34,8 +34,8 @@ public class StepsSliderActivity extends AppCompatActivity implements HasSupport
 
         if (savedInstanceState == null) {
             StepsSliderFragment fragment = StepsSliderFragment.newInstance(
-                    getIntent().getIntExtra(StepsSliderFragment.ARG_STEP_ID, -1),
-                    getIntent().getIntExtra(StepsSliderFragment.ARG_RECIPE_ID, -1)
+                    getIntent().getIntExtra(StepsSliderFragment.ARG_RECIPE_ID, -1),
+                    getIntent().getIntExtra(StepsSliderFragment.ARG_STEP_ID, -1)
             );
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.step_detail_container, fragment)
