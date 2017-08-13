@@ -30,7 +30,7 @@ public class StepDetailsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static StepDetailsFragment newInstance(@NonNull final Step step/*@NonNull final String recipeId, @NonNull final String stepId*/) {
+    public static StepDetailsFragment newInstance(@NonNull final Step step) {
         Objects.requireNonNull(step, "step cannot be null.");
         StepDetailsFragment fragment = new StepDetailsFragment();
         fragment.step = step;
@@ -51,19 +51,4 @@ public class StepDetailsFragment extends Fragment {
 
         binding.setStep(step);
     }
-
-
-    /*@SuppressWarnings("deprecation")
-    @Override
-    public void onAttach(Activity activity) {
-        AndroidSupportInjection.inject(this);
-        super.onAttach(activity);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        ViewModelProviders.of(this, viewModelFactory).get(StepsViewModel.class)
-                .step(getArguments().getInt(ASI))
-    }*/
 }

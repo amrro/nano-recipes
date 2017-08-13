@@ -10,13 +10,13 @@ import xyz.android.amrro.recipes.data.model.Recipe;
 
 /**
  * Created by amrro <amr.elghobary@gmail.com> on 7/22/17.
- *
+ * <p>
  * Service to make the API requests.
  */
 
 public interface RecipesService {
 
     @GET("baking.json")
-    public LiveData<ApiResponse<List<Recipe>>> recipes();
+    LiveData<ApiResponse<List<Recipe>>> recipes();
 
 }

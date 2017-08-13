@@ -18,7 +18,7 @@ import xyz.android.amrro.recipes.utils.retrofit.LiveDataCallAdapterFactory;
 
 /**
  * Created by amrro <amr.elghobary@gmail.com> on 7/22/17.
- *
+ * <p>
  * Main Dependencies for API
  */
 @SuppressWarnings("WeakerAccess")

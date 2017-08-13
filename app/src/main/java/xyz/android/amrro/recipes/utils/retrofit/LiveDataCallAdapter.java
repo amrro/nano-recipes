@@ -44,13 +44,13 @@ public final class LiveDataCallAdapter<R> implements CallAdapter<R, LiveData<Api
                         public void onResponse(@NonNull Call<R> call, @NonNull Response<R> response) {
                             if (response.isSuccessful() && response.body() != null) {
                                 //noinspection ConstantConditions
-                                postValue(new ApiResponse<R>(response.body()));
+                                postValue(new ApiResponse<>(response.body()));
                             }
                         }
 
                         @Override
                         public void onFailure(@NonNull Call<R> call, @NonNull Throwable throwable) {
-                            postValue(new ApiResponse<R>(throwable));
+                            postValue(new ApiResponse<>(throwable));
                         }
                     });
                 }

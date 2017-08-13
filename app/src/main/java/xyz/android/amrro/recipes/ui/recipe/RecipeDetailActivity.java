@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -91,6 +92,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements Lifecycle
         binding.include.stepList.setAdapter(new RecipeStepsAdapter(this, steps));
     }
 
+    @NonNull
     @Override
     public LifecycleRegistry getLifecycle() {
         return lifecycleRegistry;

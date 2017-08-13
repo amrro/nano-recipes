@@ -29,6 +29,7 @@ public final class StepsViewModel extends ViewModel {
     }
 
 
+    @NonNull
     public StepsViewModel setId(@NonNull final Integer id) {
         Objects.requireNonNull(id, "id cannot be null ");
         if (Objects.equals(this.id.getValue(), id)) {

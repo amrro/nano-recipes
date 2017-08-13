@@ -92,7 +92,7 @@ public class StepsSliderFragment extends LifecycleFragment {
 
         StepsPagerAdapter(FragmentManager fm, @NonNull final List<Step> steps) {
             super(fm);
-            Objects.requireNonNull(steps);
+            Objects.requireNonNull(steps, "Steps cannot be null.");
             this.steps = steps;
         }
 

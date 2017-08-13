@@ -14,7 +14,7 @@ import xyz.android.amrro.recipes.di.DaggerAppComponent;
 
 /**
  * Created by amrro <amr.elghobary@gmail.com> on 7/22/17.
- *
+ * <p>
  * Initialize main objects for whole application.
  */
 

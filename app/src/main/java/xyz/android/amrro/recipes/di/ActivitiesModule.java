@@ -13,7 +13,7 @@ import xyz.android.amrro.recipes.ui.steps.StepsSliderActivity;
  */
 
 @Module
-public abstract class ActivitiesModule {
+abstract class ActivitiesModule {
 
     @ContributesAndroidInjector
     abstract RecipesListActivity contributesRecipesListActivity();

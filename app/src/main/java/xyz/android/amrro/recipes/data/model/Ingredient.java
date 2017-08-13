@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.util.Objects;
 
-public class Ingredient {
+public final class Ingredient {
 
     @NonNull
     private final Double quantity;
