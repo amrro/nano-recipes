@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +87,7 @@ public class StepsSliderFragment extends LifecycleFragment {
         binding.pager.setCurrentItem(getArguments().getInt(ARG_STEP_ID));
     }
 
-    public class StepsPagerAdapter extends FragmentPagerAdapter {
+    public class StepsPagerAdapter extends FragmentStatePagerAdapter {
         private List<Step> steps;
 
         StepsPagerAdapter(FragmentManager fm, @NonNull final List<Step> steps) {
