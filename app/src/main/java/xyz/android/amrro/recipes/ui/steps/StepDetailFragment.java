@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,11 +82,15 @@ public class StepDetailFragment extends LifecycleFragment {
     private void updateUI(@NonNull final Step step) {
         Objects.requireNonNull(step, "Step cannot be null.");
         binding.setStep(step);
-        final RecipeVideoPlayer player = new RecipeVideoPlayer(
-                getContext(),
-                step.getVideoURL(),
-                binding.playerView
-        );
-        getLifecycle().addObserver(player);
+        if (!TextUtils.isEmpty(step.getVideoURL())) {
+            binding.setNoVideo(false);
+            final RecipeVideoPlayer player = new RecipeVideoPlayer(
+                    getContext(),
+                    step.getVideoURL(),
+                    binding.playerView
+            );
+            getLifecycle().addObserver(player);
+        }
+        binding.setNoVideo(TextUtils.isEmpty(step.getVideoURL()));
     }
 }
