@@ -89,6 +89,10 @@ public final class RecipeVideoPlayer implements LifecycleObserver {
             player.release();
             player = null;
         }
+
+        if (playerView != null) {
+            playerView = null;
+        }
     }
 
 

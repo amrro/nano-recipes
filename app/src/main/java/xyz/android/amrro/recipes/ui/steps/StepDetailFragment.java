@@ -13,12 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
 import xyz.android.amrro.recipes.R;
+import xyz.android.amrro.recipes.RecipeVideoPlayer;
 import xyz.android.amrro.recipes.data.model.Step;
 import xyz.android.amrro.recipes.databinding.FragmentStepDetailBinding;
 import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
@@ -73,10 +74,18 @@ public class StepDetailFragment extends LifecycleFragment {
         if (getArguments().containsKey(ARG_STEP_ID) && getArguments().containsKey(ARG_RECIPE_ID)) {
             ViewModelProviders.of(this, viewModelFactory).get(StepsViewModel.class)
                     .setId(getArguments().getInt(ARG_RECIPE_ID))
-                    .steps().observe(this, this::updateUI);
+                    .step(getArguments().getInt(ARG_STEP_ID)).observe(this, this::updateUI);
         }
     }
 
-    private void updateUI(final List<Step> steps) {
+    private void updateUI(@NonNull final Step step) {
+        Objects.requireNonNull(step, "Step cannot be null.");
+        binding.setStep(step);
+        final RecipeVideoPlayer player = new RecipeVideoPlayer(
+                getContext(),
+                step.getVideoURL(),
+                binding.playerView
+        );
+        getLifecycle().addObserver(player);
     }
 }
