@@ -45,7 +45,6 @@ public final class RecipeVideoPlayer implements LifecycleObserver {
                              @NonNull final SimpleExoPlayerView playerView) {
         Objects.requireNonNull(context, "Context cannot be null.");
         Objects.requireNonNull(playerView, "playerView cannot be null.");
-        // TODO: 8/13/17 check if the videoUrl is valid.
         this.context = context;
         this.videoUrl = videoUrl;
         this.playerView = playerView;

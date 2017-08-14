@@ -14,8 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Objects;
-
 import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
@@ -41,6 +39,10 @@ public class StepDetailFragment extends LifecycleFragment {
 
     private FragmentStepDetailBinding binding;
     private PagerAdapter adapter;
+    private StepViewModel stepViewModel;
+
+    private Integer recipeId;
+    private Integer stepId;
 
     public StepDetailFragment() {
     }
@@ -69,18 +71,24 @@ public class StepDetailFragment extends LifecycleFragment {
         super.onAttach(activity);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (getArguments().containsKey(ARG_STEP_ID) && getArguments().containsKey(ARG_RECIPE_ID)) {
-            ViewModelProviders.of(this, viewModelFactory).get(StepsViewModel.class)
-                    .setId(getArguments().getInt(ARG_RECIPE_ID))
-                    .step(getArguments().getInt(ARG_STEP_ID)).observe(this, this::updateUI);
+            recipeId = getArguments().getInt(ARG_RECIPE_ID);
+            stepId = getArguments().getInt(ARG_STEP_ID);
+            stepViewModel = ViewModelProviders.of(this, viewModelFactory).get(StepViewModel.class)
+                    .setRecipeId(recipeId);
+            stepViewModel.step(stepId).observe(this, this::updateUI);
+            stepViewModel.hasNext(stepId).observe(this, hasNext -> binding.setHasNext(hasNext));
+
+            stepViewModel.hasPrevious(stepId).observe(this, hasPrevious -> binding.setHasPrev(hasPrevious));
         }
     }
 
     private void updateUI(@NonNull final Step step) {
-        Objects.requireNonNull(step, "Step cannot be null.");
+        // TODO: 8/14/17 handle nullity
         binding.setStep(step);
         if (!TextUtils.isEmpty(step.getVideoURL())) {
             binding.setNoVideo(false);

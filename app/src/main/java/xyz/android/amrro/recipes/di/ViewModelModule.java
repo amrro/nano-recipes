@@ -8,7 +8,7 @@ import dagger.Module;
 import dagger.multibindings.IntoMap;
 import xyz.android.amrro.recipes.ui.main.RecipesViewModel;
 import xyz.android.amrro.recipes.ui.recipe.SingleRecipeViewModel;
-import xyz.android.amrro.recipes.ui.steps.StepsViewModel;
+import xyz.android.amrro.recipes.ui.steps.StepViewModel;
 import xyz.android.amrro.recipes.utils.ViewModelFactory;
 
 @SuppressWarnings("WeakerAccess")
@@ -27,8 +27,8 @@ public abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(StepsViewModel.class)
-    abstract ViewModel bindStepsViewModel(StepsViewModel stepsViewModel);
+    @ViewModelKey(StepViewModel.class)
+    abstract ViewModel bindStepsViewModel(StepViewModel stepViewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory factory);

@@ -65,7 +65,6 @@ public final class RecipeRepo {
         });
     }
 
-    // STOPSHIP: 8/9/17 if useless, delete
     @NonNull
     public LiveData<List<Step>> steps(@NonNull final Integer id) {
         return Transformations.map(this.recipes(), response -> {
