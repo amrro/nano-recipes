@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textIsSelectable="true"
-        tools:context="xyz.android.amrro.recipes.ui.steps.StepsSliderFragment"
+        tools:context="xyz.android.amrro.recipes.ui.steps.StepDetailFragment"
         tools:ignore="ContentDescription">
 
         <android.support.v4.view.ViewPager

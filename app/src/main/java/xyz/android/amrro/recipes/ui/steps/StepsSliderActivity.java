@@ -33,9 +33,9 @@ public class StepsSliderActivity extends AppCompatActivity implements HasSupport
         setContentView(R.layout.activity_steps_slider);
 
         if (savedInstanceState == null) {
-            StepsSliderFragment fragment = StepsSliderFragment.newInstance(
-                    getIntent().getIntExtra(StepsSliderFragment.ARG_RECIPE_ID, -1),
-                    getIntent().getIntExtra(StepsSliderFragment.ARG_STEP_ID, -1)
+            StepDetailFragment fragment = StepDetailFragment.newInstance(
+                    getIntent().getIntExtra(StepDetailFragment.ARG_RECIPE_ID, -1),
+                    getIntent().getIntExtra(StepDetailFragment.ARG_STEP_ID, -1)
             );
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.step_detail_container, fragment)

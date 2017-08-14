@@ -12,8 +12,8 @@ import java.util.List;
 import xyz.android.amrro.recipes.R;
 import xyz.android.amrro.recipes.data.model.Step;
 import xyz.android.amrro.recipes.databinding.StepListContentBinding;
+import xyz.android.amrro.recipes.ui.steps.StepDetailFragment;
 import xyz.android.amrro.recipes.ui.steps.StepsSliderActivity;
-import xyz.android.amrro.recipes.ui.steps.StepsSliderFragment;
 
 /**
  * Created by amrro <amr.elghobary@gmail.com> on 8/9/17.
@@ -45,16 +45,16 @@ public class RecipeStepsAdapter
         holder.binding.setStep(step);
         holder.binding.getRoot().setOnClickListener(view -> {
             if (recipeDetailActivity.mTwoPane) {
-                StepsSliderFragment fragment =
-                        StepsSliderFragment.newInstance(holder.binding.getStep().getId(), recipeDetailActivity.recipeId);
+                StepDetailFragment fragment =
+                        StepDetailFragment.newInstance(holder.binding.getStep().getId(), recipeDetailActivity.recipeId);
                 recipeDetailActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.step_detail_container, fragment)
                         .commit();
             } else {
                 Context context = view.getContext();
                 Intent intent = new Intent(context, StepsSliderActivity.class);
-                intent.putExtra(StepsSliderFragment.ARG_RECIPE_ID, recipeDetailActivity.recipeId);
-                intent.putExtra(StepsSliderFragment.ARG_STEP_ID, holder.binding.getStep().getId());
+                intent.putExtra(StepDetailFragment.ARG_RECIPE_ID, recipeDetailActivity.recipeId);
+                intent.putExtra(StepDetailFragment.ARG_STEP_ID, holder.binding.getStep().getId());
                 context.startActivity(intent);
             }
         });
