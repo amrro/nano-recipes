@@ -81,10 +81,27 @@ public class StepDetailFragment extends LifecycleFragment {
             stepViewModel = ViewModelProviders.of(this, viewModelFactory).get(StepViewModel.class)
                     .setRecipeId(recipeId);
             stepViewModel.step(stepId).observe(this, this::updateUI);
-            stepViewModel.hasNext(stepId).observe(this, hasNext -> binding.setHasNext(hasNext));
-
-            stepViewModel.hasPrevious(stepId).observe(this, hasPrevious -> binding.setHasPrev(hasPrevious));
+            stepViewModel.hasNext(stepId).observe(this, hasNext -> {
+                binding.setHasNext(hasNext);
+                if (hasNext) {
+                    binding.next.setOnClickListener(view -> replaceFragment(stepId + 1));
+                }
+            });
+            stepViewModel.hasPrevious(stepId).observe(this, hasPrevious -> {
+                binding.setHasPrev(hasPrevious);
+                if (hasPrevious) {
+                    binding.previous.setOnClickListener(view -> replaceFragment(stepId - 1));
+                }
+            });
         }
+    }
+
+    private void replaceFragment(@NonNull final Integer newId) {
+        final StepDetailFragment nextStepFragment = newInstance(recipeId, newId);
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.step_detail_container, nextStepFragment)
+                .commit();
     }
 
     private void updateUI(@NonNull final Step step) {
