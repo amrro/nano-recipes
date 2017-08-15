@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/primaryTextColor</item>
+        <item name="android:fontFamily">@font/comfortaa</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
