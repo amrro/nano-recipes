@@ -27,6 +27,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/grid"
+            visibleGone="@{! noConnection}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="0dp"
@@ -37,9 +38,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar2"
-            tools:listitem="@layout/cart_recipe">
+            tools:listitem="@layout/cart_recipe"
+            tools:visibility="gone" />
 
-        </android.support.v7.widget.RecyclerView>
+
+        <include
+            android:id="@+id/no_connection"
+            layout="@layout/no_connection"
+            visibleGone="@{noConnection}" />
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar2"

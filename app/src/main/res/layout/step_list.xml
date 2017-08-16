@@ -13,8 +13,6 @@
         android:name="xyz.android.amrro.recipes.ui.recipe.StepListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context="xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity"
         tools:listitem="@layout/step_list_content" />
