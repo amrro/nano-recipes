@@ -22,10 +22,8 @@ public class RecipesListActivity extends LifecycleActivity {
     public static final int SPAN_COUNT = 1;
     @Inject
     ViewModelProvider.Factory viewModelFactory;
-    ConnectivityMonitor observer;
     private ActivityRecipesListBinding binding;
     private RecipesViewModel recipesViewModel;
-    private ConnectivityMonitor monitor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +47,7 @@ public class RecipesListActivity extends LifecycleActivity {
                     }
                 });
 
-        monitor = new ConnectivityMonitor(this);
+        ConnectivityMonitor monitor = new ConnectivityMonitor(this);
         getLifecycle().addObserver(monitor);
         monitor.isConnected().observe(this, isConnected -> {
             //noinspection ConstantConditions

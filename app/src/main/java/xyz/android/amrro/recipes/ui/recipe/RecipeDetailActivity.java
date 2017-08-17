@@ -80,8 +80,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements Lifecycle
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             navigateUpFromSameTask(this);
             return true;
         }
