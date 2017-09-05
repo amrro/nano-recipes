@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <data>
 
         <variable
@@ -11,30 +10,52 @@
             type="boolean" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="net.medvey.apps.medvey.ui.surveys.SurveysListActivitySimple">
+        tools:context="xyz.android.amrro.recipes.MainActivity">
 
-        <ProgressBar
-            android:id="@android:id/empty"
-            visibleGone="@{loading}"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminate="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/list"
-            visibleGone="@{! loading}"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.AppBarLayout>
+
+
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/cart_recipe" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context="net.medvey.apps.medvey.ui.surveys.SurveysListActivitySimple">
 
-    </android.support.constraint.ConstraintLayout>
+            <ProgressBar
+                android:id="@android:id/empty"
+                visibleGone="@{loading}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list"
+                visibleGone="@{! loading}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/cart_recipe" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
 </layout>

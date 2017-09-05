@@ -53,6 +53,10 @@ public class BaseActivity extends AppCompatActivity implements LifecycleRegistry
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    protected void notifyNoData() {
+        notify("No Data Avaliable. Check later.");
+    }
+
     protected <T extends ViewModel> T getViewModel(final Class<T> cls) {
         return ViewModelProviders.of(this, viewModelFactory).get(cls);
     }
@@ -63,13 +67,19 @@ public class BaseActivity extends AppCompatActivity implements LifecycleRegistry
         }
     }
 
+    protected void setHomeEnabled(@NonNull final Boolean showUp) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
     protected void dismissKeyboard(IBinder windowToken) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(windowToken, 0);
     }
 
-    public String itemId() {
-        return getIntent().getStringExtra("KEY_ID");
+    public Integer itemId() {
+        return getIntent().getIntExtra(Navigator.KEY_ITEM_ID, - 1);
     }
 
     /**

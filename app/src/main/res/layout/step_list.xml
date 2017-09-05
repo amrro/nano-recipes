@@ -15,5 +15,5 @@
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
         tools:context="xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity"
-        tools:listitem="@layout/step_list_content" />
+        tools:listitem="@layout/card_step" />
 </layout>
