@@ -57,10 +57,10 @@ public final class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.Re
 
         void bind(@NonNull final Recipe recipe) {
             Objects.requireNonNull(recipe, "recipe cannot be null.");
-            binding.name.setText(recipe.getName());
-            if (!recipe.getImage().isEmpty()) {
+            binding.name.setText(recipe.name);
+            if (! recipe.image.isEmpty()) {
                 Glide.with(binding.getRoot())
-                        .load(recipe.getImage())
+                        .load(recipe.image)
                         .into(binding.image);
             }
         }

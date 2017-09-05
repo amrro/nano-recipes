@@ -9,17 +9,17 @@ import java.util.Objects;
 public final class Recipe {
 
     @NonNull
-    final private Integer id;
+    final public Integer id;
     @NonNull
-    final private String name;
+    final public String name;
     @NonNull
-    final private List<Ingredient> ingredients;
+    final public List<Ingredient> ingredients;
     @NonNull
-    final private List<Step> steps;
+    final public List<Step> steps;
     @NonNull
-    final private Integer servings;
+    final public Integer servings;
     @NonNull
-    final private String image;
+    final public String image;
 
 
     public Recipe(@NonNull Integer id,
@@ -41,54 +41,23 @@ public final class Recipe {
         this.image = image;
     }
 
-    @NonNull
-    public Integer getId() {
-        return id;
-    }
-
-    @NonNull
-    public String getName() {
-        return name;
-    }
-
-    @NonNull
-    public List<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    @NonNull
-    public List<Step> getSteps() {
-        return steps;
-    }
-
-    @NonNull
-    public Integer getServings() {
-        return servings;
-    }
-
-    @NonNull
-    public String getImage() {
-        return image;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Recipe)) return false;
+        if (! (o instanceof Recipe)) return false;
         Recipe recipe = (Recipe) o;
-        return Objects.equals(getId(), recipe.getId()) &&
-                Objects.equals(getName(), recipe.getName()) &&
-                Objects.equals(getIngredients(), recipe.getIngredients()) &&
-                Objects.equals(getSteps(), recipe.getSteps()) &&
-                Objects.equals(getServings(), recipe.getServings()) &&
-                Objects.equals(getImage(), recipe.getImage());
+        return Objects.equals(id, recipe.id) &&
+                Objects.equals(name, recipe.name) &&
+                Objects.equals(ingredients, recipe.ingredients) &&
+                Objects.equals(steps, recipe.steps) &&
+                Objects.equals(servings, recipe.servings) &&
+                Objects.equals(image, recipe.image);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getIngredients(), getSteps(), getServings(), getImage());
+        return Objects.hash(id, name, ingredients, steps, servings, image);
     }
-
 
     @Override
     public String toString() {
