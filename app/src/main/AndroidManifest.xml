@@ -39,6 +39,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity" />
         </activity>
+
+        <receiver android:name=".ui.widget.IngredientsWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/ingredients_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

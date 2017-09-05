@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="ingredient"
+            type="xyz.android.amrro.recipes.data.model.Ingredient" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{ingredient.ingredient}"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            tools:text="Graham Cracker crumbs" />
+
+        <TextView
+            quantity="@{ingredient}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/robotoslab"
+            android:textAlignment="textEnd"
+            android:textColor="@color/primaryColor"
+            android:textSize="16sp"
+            tools:text="2 CUP" />
+    </LinearLayout>
+</layout>
