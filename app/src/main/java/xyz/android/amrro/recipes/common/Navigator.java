@@ -3,12 +3,14 @@ package xyz.android.amrro.recipes.common;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import java.util.Objects;
 
 import xyz.android.amrro.recipes.data.model.Recipe;
+import xyz.android.amrro.recipes.data.model.Step;
 import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
+import xyz.android.amrro.recipes.ui.steps.StepDetailFragment;
+import xyz.android.amrro.recipes.ui.steps.StepsSliderActivity;
 
 
 final public class Navigator {
@@ -16,7 +18,7 @@ final public class Navigator {
     static final String KEY_ITEM_TITLE = "KEY_ITEM_TITLE";
     private final Context context;
 
-    public Navigator(final Context context) {
+    Navigator(final Context context) {
         this.context = Objects.requireNonNull(context, "context cannot be null.");
     }
 
@@ -28,24 +30,11 @@ final public class Navigator {
         context.startActivity(intent);
     }
 
-    private void navigateTo(final Class<?> cls) {
-        navigateTo(cls, null);
-    }
-
-    private void navigateTo(final Class<?> cls, @Nullable final String id) {
-        final Intent intent = new Intent(context, cls);
-        if (id != null) {
-            intent.putExtra(KEY_ITEM_ID, id);
-        }
+    public void toSteps(Integer recipeId, Step step) {
+        final Intent intent = new Intent(context, StepsSliderActivity.class);
+        intent.putExtra(StepDetailFragment.ARG_RECIPE_ID, recipeId)
+                .putExtra(StepDetailFragment.ARG_STEP_ID, step.id);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        context.startActivity(intent);
-    }
-
-    private void navigateWithClear(final Class<?> cls) {
-        final Intent intent = new Intent(context, cls);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 }

@@ -5,19 +5,18 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import xyz.android.amrro.recipes.R;
-import xyz.android.amrro.recipes.common.BaseActivity;
 import xyz.android.amrro.recipes.common.DataListAdapter;
+import xyz.android.amrro.recipes.common.OnItemClickedListener;
 import xyz.android.amrro.recipes.data.model.Step;
 import xyz.android.amrro.recipes.databinding.CardStepBinding;
 
 /**
  * Created by amrro <amr.elghobary@gmail.com> on 8/9/17.
- * <p>
  * to list steps of some recipe.
  */
 public class StepsAdapter extends DataListAdapter<Step, CardStepBinding> {
 
-    StepsAdapter(BaseActivity.OnItemClickedListener<Step> listener) {
+    StepsAdapter(OnItemClickedListener<Step> listener) {
         super(listener);
     }
 

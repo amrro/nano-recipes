@@ -107,15 +107,15 @@ public class StepDetailFragment extends LifecycleFragment {
     private void updateUI(@NonNull final Step step) {
         // TODO: 8/14/17 handle nullity
         binding.setStep(step);
-        if (!TextUtils.isEmpty(step.getVideoURL())) {
+        if (! TextUtils.isEmpty(step.videoURL)) {
             binding.setNoVideo(false);
             final RecipeVideoPlayer player = new RecipeVideoPlayer(
                     getContext(),
-                    step.getVideoURL(),
+                    step.videoURL,
                     binding.playerView
             );
             getLifecycle().addObserver(player);
         }
-        binding.setNoVideo(TextUtils.isEmpty(step.getVideoURL()));
+        binding.setNoVideo(TextUtils.isEmpty(step.videoURL));
     }
 }

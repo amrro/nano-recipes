@@ -3,16 +3,15 @@ package xyz.android.amrro.recipes.ui.steps;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import xyz.android.amrro.recipes.R;
+import xyz.android.amrro.recipes.common.BaseActivity;
 import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
 
 /**
@@ -21,14 +20,13 @@ import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
  * item details are presented side-by-side with a list of items
  * in a {@link RecipeDetailActivity}.
  */
-public class StepsSliderActivity extends AppCompatActivity implements HasSupportFragmentInjector {
+public class StepsSliderActivity extends BaseActivity implements HasSupportFragmentInjector {
 
     @Inject
     DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_steps_slider);
 

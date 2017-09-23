@@ -17,22 +17,21 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
-            android:name=".ui.main.RecipesListActivity"
+            android:name=".ui.main.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
             android:name=".ui.recipe.RecipeDetailActivity"
-            android:parentActivityName=".ui.main.RecipesListActivity"
+            android:parentActivityName=".ui.main.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="xyz.android.amrro.recipes.ui.main.RecipesListActivity" />
+                android:value="xyz.android.amrro.recipes.ui.main.HomeActivity" />
         </activity>
 
         <activity

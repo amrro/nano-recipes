@@ -9,11 +9,12 @@ public class RecipeDetailActivity extends SimpleRecyclerActivity<Step, StepsAdap
 
     @Override
     protected StepsAdapter createAdapter() {
-        return new StepsAdapter(step -> notify(step.getShortDescription()));
+        return new StepsAdapter(step -> navigator.toSteps(itemId(), step));
     }
 
     @Override
     protected void createList() {
+        setHomeEnabled(true);
         model = getViewModel(SingleRecipeViewModel.class).setId(itemId());
         model.recipe().observe(this, recipe -> {
             if (recipe != null) updateAdapter(recipe.steps);

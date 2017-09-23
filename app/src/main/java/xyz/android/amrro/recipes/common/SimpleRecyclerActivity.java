@@ -35,7 +35,6 @@ public abstract class SimpleRecyclerActivity<M, T extends DataListAdapter> exten
 
         final String title = getIntent().getStringExtra(Navigator.KEY_ITEM_TITLE);
         if (title != null) setActionBarTitle(title);
-        setHomeEnabled(true);
         twoPane = binding.container != null;
         setUpRecycler();
         createList();

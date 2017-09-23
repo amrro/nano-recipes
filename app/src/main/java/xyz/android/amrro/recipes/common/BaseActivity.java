@@ -41,6 +41,7 @@ public class BaseActivity extends AppCompatActivity implements LifecycleRegistry
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         navigator = new Navigator(this);
+        setHomeEnabled(false);
     }
 
     @Override
@@ -48,13 +49,13 @@ public class BaseActivity extends AppCompatActivity implements LifecycleRegistry
         return registry;
     }
 
-    protected void notify(@NonNull final String message) {
+    protected void toast(@NonNull final String message) {
         Objects.requireNonNull(message, "message cannot be null");
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     protected void notifyNoData() {
-        notify("No Data Avaliable. Check later.");
+        toast("No Data Available. Check later.");
     }
 
     protected <T extends ViewModel> T getViewModel(final Class<T> cls) {
@@ -69,7 +70,7 @@ public class BaseActivity extends AppCompatActivity implements LifecycleRegistry
 
     protected void setHomeEnabled(@NonNull final Boolean showUp) {
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(showUp);
         }
     }
 
@@ -82,12 +83,4 @@ public class BaseActivity extends AppCompatActivity implements LifecycleRegistry
         return getIntent().getIntExtra(Navigator.KEY_ITEM_ID, - 1);
     }
 
-    /**
-     * used with {@link android.support.v7.widget.RecyclerView.Adapter}s to return the data of clicked item.
-     *
-     * @param <T>
-     */
-    public interface OnItemClickedListener<T> {
-        void onClicked(@NonNull final T item);
-    }
 }

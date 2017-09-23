@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import java.util.List;
 import java.util.Objects;
 
-import xyz.android.amrro.recipes.common.BaseActivity.OnItemClickedListener;
-
 /**
  * A generic RecyclerView adapter that uses Data Binding & DiffUtil.
  *
@@ -53,7 +51,7 @@ public abstract class DataListAdapter<T, V extends ViewDataBinding>
 
     @SuppressLint("StaticFieldLeak")
     @MainThread
-    public void replace(List<T> update) {
+    void replace(List<T> update) {
         dataVersion++;
         if (items == null) {
             if (update == null) {

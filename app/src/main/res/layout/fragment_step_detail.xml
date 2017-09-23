@@ -31,61 +31,87 @@
         tools:context="xyz.android.amrro.recipes.ui.steps.StepDetailFragment"
         tools:ignore="ContentDescription">
 
-        <ImageView
-            visibleGone="@{noVideo}"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/video_placeholder"
-            android:visibility="gone"
-            app:layout_constraintDimensionRatio="16:9"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-            android:id="@+id/player_view"
-            visibleGone="@{! noVideo}"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:visibility="invisible"
-            app:layout_constraintDimensionRatio="16:9"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="?android:attr/actionBarSize"
+            android:fillViewport="true">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    visibleGone="@{noVideo}"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/video_placeholder"
+                    android:visibility="gone"
+                    app:layout_constraintDimensionRatio="16:9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+                    android:id="@+id/player_view"
+                    visibleGone="@{! noVideo}"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:visibility="invisible"
+                    app:layout_constraintDimensionRatio="16:9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="gone" />
 
 
-        <TextView
-            android:id="@+id/step_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:maxLines="10"
-            android:text="@{step.description}"
-            android:textAlignment="textStart"
-            android:textSize="18sp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="TextView" />
+                <TextView
+                    android:id="@+id/step_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:maxLines="10"
+                    android:text="@{step.description}"
+                    android:textAlignment="textStart"
+                    android:textSize="18sp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:text="TextView" />
 
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="223dp" />
+
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
+
+
+        <!--
+
+        BOTTOM CONTROLS
+        -->
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="?android:attr/actionBarSize"
             android:layout_marginBottom="0dp"
             android:layout_marginEnd="0dp"
             android:layout_marginStart="0dp"
@@ -114,8 +140,7 @@
                 android:layout_weight="12"
                 android:gravity="center"
                 android:text="@{step.shortDescription}"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 tools:text="Finish filling prep" />
 
             <ImageButton
@@ -128,12 +153,5 @@
                 android:gravity="center_vertical"
                 android:src="@drawable/ic_right_arrow" />
         </LinearLayout>
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="223dp" />
     </android.support.constraint.ConstraintLayout>
 </layout>

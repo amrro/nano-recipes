@@ -5,18 +5,19 @@ import android.support.annotation.NonNull;
 
 import java.util.Objects;
 
+@SuppressWarnings("WeakerAccess")
 public final class Step {
 
     @NonNull
-    private final Integer id;
+    public final Integer id;
     @NonNull
-    private final String shortDescription;
+    public final String shortDescription;
     @NonNull
-    private final String description;
+    public final String description;
     @NonNull
-    private final String videoURL;
+    public final String videoURL;
     @NonNull
-    private final String thumbnailURL;
+    public final String thumbnailURL;
 
     public Step(@NonNull Integer id,
                 @NonNull String shortDescription,
@@ -34,46 +35,21 @@ public final class Step {
         this.thumbnailURL = thumbnailURL;
     }
 
-    @NonNull
-    public Integer getId() {
-        return id;
-    }
-
-    @NonNull
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    @NonNull
-    public String getDescription() {
-        return description;
-    }
-
-    @NonNull
-    public String getVideoURL() {
-        return videoURL;
-    }
-
-    @NonNull
-    public String getThumbnailURL() {
-        return thumbnailURL;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Step)) return false;
+        if (! (o instanceof Step)) return false;
         Step step = (Step) o;
-        return Objects.equals(getId(), step.getId()) &&
-                Objects.equals(getShortDescription(), step.getShortDescription()) &&
-                Objects.equals(getDescription(), step.getDescription()) &&
-                Objects.equals(getVideoURL(), step.getVideoURL()) &&
-                Objects.equals(getThumbnailURL(), step.getThumbnailURL());
+        return Objects.equals(id, step.id) &&
+                Objects.equals(shortDescription, step.shortDescription) &&
+                Objects.equals(description, step.description) &&
+                Objects.equals(videoURL, step.videoURL) &&
+                Objects.equals(thumbnailURL, step.thumbnailURL);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getShortDescription(), getDescription(), getVideoURL(), getThumbnailURL());
+        return Objects.hash(id, shortDescription, description, videoURL, thumbnailURL);
     }
 
     @Override

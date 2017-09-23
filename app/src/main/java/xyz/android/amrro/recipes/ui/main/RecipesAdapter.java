@@ -7,14 +7,14 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 
 import xyz.android.amrro.recipes.R;
-import xyz.android.amrro.recipes.common.BaseActivity;
 import xyz.android.amrro.recipes.common.DataListAdapter;
+import xyz.android.amrro.recipes.common.OnItemClickedListener;
 import xyz.android.amrro.recipes.data.model.Recipe;
 import xyz.android.amrro.recipes.databinding.CartRecipeBinding;
 
 
 public final class RecipesAdapter extends DataListAdapter<Recipe, CartRecipeBinding> {
-    RecipesAdapter(BaseActivity.OnItemClickedListener<Recipe> listener) {
+    RecipesAdapter(OnItemClickedListener<Recipe> listener) {
         super(listener);
     }
 
@@ -40,11 +40,11 @@ public final class RecipesAdapter extends DataListAdapter<Recipe, CartRecipeBind
     }
 
     /*private List<Recipe> data;
-    private RecipesListActivity.OnRecipeClickedListener listener;
+    private HomeActivity.OnRecipeClickedListener listener;
 
 
     RecipesAdapter(List<Recipe> data,
-                   RecipesListActivity.OnRecipeClickedListener listener) {
+                   HomeActivity.OnRecipeClickedListener listener) {
         this.data = data;
         this.listener = listener;
     }
