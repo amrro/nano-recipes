@@ -1,24 +1,45 @@
 package xyz.android.amrro.recipes.ui.main;
 
 import android.databinding.DataBindingUtil;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 
-import java.util.List;
-import java.util.Objects;
-
 import xyz.android.amrro.recipes.R;
+import xyz.android.amrro.recipes.common.BaseActivity;
+import xyz.android.amrro.recipes.common.DataListAdapter;
 import xyz.android.amrro.recipes.data.model.Recipe;
 import xyz.android.amrro.recipes.databinding.CartRecipeBinding;
 
 
-public final class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder> {
+public final class RecipesAdapter extends DataListAdapter<Recipe, CartRecipeBinding> {
+    RecipesAdapter(BaseActivity.OnItemClickedListener<Recipe> listener) {
+        super(listener);
+    }
 
-    private List<Recipe> data;
+    @Override
+    protected CartRecipeBinding createBinding(LayoutInflater inflater, ViewGroup parent) {
+        final CartRecipeBinding binding = DataBindingUtil.inflate(inflater, R.layout.cart_recipe, parent, false);
+        binding.getRoot().setOnClickListener(view -> {
+            final Recipe recipe = binding.getRecipe();
+            if (recipe != null) listener.onClicked(recipe);
+        });
+        return binding;
+    }
+
+    @Override
+    protected void bind(CartRecipeBinding binding, Recipe item) {
+        binding.setRecipe(item);
+        binding.name.setText(item.name);
+        if (! item.image.isEmpty()) {
+            Glide.with(binding.getRoot())
+                    .load(item.image)
+                    .into(binding.image);
+        }
+    }
+
+    /*private List<Recipe> data;
     private RecipesListActivity.OnRecipeClickedListener listener;
 
 
@@ -64,6 +85,6 @@ public final class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.Re
                         .into(binding.image);
             }
         }
-    }
+    }*/
 }
 

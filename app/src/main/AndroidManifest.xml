@@ -8,20 +8,24 @@
 
     <application
         android:name=".RecipesApp"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".ui.main.RecipesListActivity">
+
+        <activity
+            android:name=".ui.main.RecipesListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.recipe.RecipeDetailActivity"
             android:parentActivityName=".ui.main.RecipesListActivity"
@@ -30,6 +34,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="xyz.android.amrro.recipes.ui.main.RecipesListActivity" />
         </activity>
+
         <activity
             android:name=".ui.steps.StepsSliderActivity"
             android:label="@string/title_step_detail"
@@ -39,6 +44,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity" />
         </activity>
+
 
         <receiver android:name=".ui.widget.IngredientsWidget">
             <intent-filter>

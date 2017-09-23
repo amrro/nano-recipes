@@ -1,42 +1,39 @@
 package xyz.android.amrro.recipes.ui.main;
 
-import android.arch.lifecycle.LifecycleActivity;
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-
-import javax.inject.Inject;
-
-import dagger.android.AndroidInjection;
-import xyz.android.amrro.recipes.ConnectivityMonitor;
-import xyz.android.amrro.recipes.R;
-import xyz.android.amrro.recipes.common.Navigator;
+import xyz.android.amrro.recipes.common.SimpleRecyclerActivity;
 import xyz.android.amrro.recipes.data.model.Recipe;
-import xyz.android.amrro.recipes.databinding.ActivityRecipesListBinding;
 
-public class RecipesListActivity extends LifecycleActivity {
-    public static final int SPAN_COUNT = 1;
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
-    private Navigator navigator;
-    private ActivityRecipesListBinding binding;
-    private RecipesViewModel recipesViewModel;
+public class RecipesListActivity extends SimpleRecyclerActivity<Recipe, RecipesAdapter> {
+
+    private RecipesViewModel recipes;
 
     @Override
+    protected RecipesAdapter createAdapter() {
+        return new RecipesAdapter(recipe -> navigator.toRecipeDetails(recipe));
+    }
+
+    @Override
+    protected void createList() {
+        recipes = getViewModel(RecipesViewModel.class);
+        recipes.getRecipes().observe(this, response -> {
+            if (response != null && response.isSuccessful())
+                updateAdapter(response.getData());
+        });
+    }
+
+
+   /* @Override
     protected void onCreate(Bundle savedInstanceState) {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         navigator = new Navigator(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_recipes_list);
         binding.setNoConnection(true);
-        binding.grid.setLayoutManager(new GridLayoutManager(this, SPAN_COUNT));
+        binding.grid.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.)));
         recipesViewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(RecipesViewModel.class);
         recipesViewModel.getRecipes()
-                .observe(this, response -> {
+                .observe(this, (ApiResponse<List<Recipe>> response) -> {
                     if (response != null && response.isSuccessful()) {
                         binding.grid.setAdapter(
                                 new RecipesAdapter(response.getData(), recipe -> navigator.toRecipeDetails(recipe)));
@@ -56,5 +53,5 @@ public class RecipesListActivity extends LifecycleActivity {
 
     interface OnRecipeClickedListener {
         void onRecipeClicked(@NonNull final Recipe recipe);
-    }
+    }*/
 }
