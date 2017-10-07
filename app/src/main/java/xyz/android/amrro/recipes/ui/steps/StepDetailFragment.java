@@ -1,14 +1,12 @@
 package xyz.android.amrro.recipes.ui.steps;
 
 import android.app.Activity;
-import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +17,7 @@ import javax.inject.Inject;
 import dagger.android.support.AndroidSupportInjection;
 import xyz.android.amrro.recipes.R;
 import xyz.android.amrro.recipes.RecipeVideoPlayer;
+import xyz.android.amrro.recipes.common.BaseFragment;
 import xyz.android.amrro.recipes.data.model.Step;
 import xyz.android.amrro.recipes.databinding.FragmentStepDetailBinding;
 import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
@@ -29,7 +28,7 @@ import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
  * in two-pane mode (on tablets) or a {@link StepsSliderActivity}
  * on handsets.
  */
-public class StepDetailFragment extends LifecycleFragment {
+public class StepDetailFragment extends BaseFragment {
 
     public static final String ARG_STEP_ID = "item_id";
     public static final String ARG_RECIPE_ID = "recipe_id";
@@ -38,8 +37,6 @@ public class StepDetailFragment extends LifecycleFragment {
     ViewModelProvider.Factory viewModelFactory;
 
     private FragmentStepDetailBinding binding;
-    private PagerAdapter adapter;
-    private StepViewModel stepViewModel;
 
     private Integer recipeId;
     private Integer stepId;
@@ -78,7 +75,7 @@ public class StepDetailFragment extends LifecycleFragment {
         if (getArguments().containsKey(ARG_STEP_ID) && getArguments().containsKey(ARG_RECIPE_ID)) {
             recipeId = getArguments().getInt(ARG_RECIPE_ID);
             stepId = getArguments().getInt(ARG_STEP_ID);
-            stepViewModel = ViewModelProviders.of(this, viewModelFactory).get(StepViewModel.class)
+            final StepViewModel stepViewModel = ViewModelProviders.of(this, viewModelFactory).get(StepViewModel.class)
                     .setRecipeId(recipeId);
             stepViewModel.step(stepId).observe(this, this::updateUI);
             stepViewModel.hasNext(stepId).observe(this, hasNext -> {

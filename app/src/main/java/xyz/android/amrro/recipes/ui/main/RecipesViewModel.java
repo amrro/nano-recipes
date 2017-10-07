@@ -22,8 +22,8 @@ public final class RecipesViewModel extends ViewModel {
 
     @Inject
     RecipesViewModel(@NonNull final RecipeRepo repo) {
-        retry.setValue("Retry");
         recipes = Transformations.switchMap(retry, input -> repo.recipes());
+        retry.setValue("Retry");
     }
 
     public LiveData<ApiResponse<List<Recipe>>> getRecipes() {

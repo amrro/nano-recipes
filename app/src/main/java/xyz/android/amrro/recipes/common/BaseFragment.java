@@ -1,13 +1,9 @@
 package xyz.android.amrro.recipes.common;
 
 import android.app.Activity;
-import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProvider;
-import android.content.Context;
-import android.os.IBinder;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.view.inputmethod.InputMethodManager;
+import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
 import java.util.Objects;
@@ -21,7 +17,7 @@ import dagger.android.support.AndroidSupportInjection;
  * Holds the common behaviour and functions of fragments.
  */
 
-public class BaseFragment extends LifecycleFragment {
+public class BaseFragment extends Fragment {
 
     @Inject
     protected ViewModelProvider.Factory viewModelFactory;
@@ -38,16 +34,7 @@ public class BaseFragment extends LifecycleFragment {
         navigator = new Navigator(activity);
     }
 
-    protected void dismissKeyboard(IBinder windowToken) {
-        FragmentActivity activity = getActivity();
-        if (activity != null) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(
-                    Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(windowToken, 0);
-        }
-    }
-
-    protected void notify(@NonNull final String message) {
+    protected void taost(@NonNull final String message) {
         Objects.requireNonNull(message, "message cannot be null");
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }

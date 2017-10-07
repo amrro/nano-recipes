@@ -84,14 +84,14 @@ public abstract class DataListAdapter<T, V extends ViewDataBinding>
                         public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
                             T oldItem = oldItems.get(oldItemPosition);
                             T newItem = update.get(newItemPosition);
-                            return /*Objects.equals(oldItem, newItem)*/ false;
+                            return Objects.equals(oldItem, newItem);
                         }
 
                         @Override
                         public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                             T oldItem = oldItems.get(oldItemPosition);
                             T newItem = update.get(newItemPosition);
-                            return /*Objects.equals(oldItem, newItem)*/ false;
+                            return Objects.equals(oldItem, newItem);
                         }
                     });
                 }
@@ -111,14 +111,6 @@ public abstract class DataListAdapter<T, V extends ViewDataBinding>
     }
 
     protected abstract void bind(V binding, T item);
-
-    protected boolean areItemsTheSame(T oldItem, T newItem) {
-        return Objects.equals(oldItem, newItem);
-    }
-
-    protected boolean areContentsTheSame(T oldItem, T newItem) {
-        return Objects.equals(oldItem, newItem);
-    }
 
     @Override
     public int getItemCount() {

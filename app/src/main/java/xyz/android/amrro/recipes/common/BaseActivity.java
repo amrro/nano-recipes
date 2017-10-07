@@ -1,40 +1,37 @@
 package xyz.android.amrro.recipes.common;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.LifecycleRegistry;
-import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
-
 
 import java.util.Objects;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 
 /**
  * Created by amrro <amr.elghobary@gmail.com> on 8/29/17.
- * <p>
  * Holds the common properties of all {@link android.app.Activity}s.
  */
 
 @SuppressLint("Registered")
-public class BaseActivity extends AppCompatActivity implements LifecycleRegistryOwner {
-
-    private final LifecycleRegistry registry = new LifecycleRegistry(this);
+public class BaseActivity extends AppCompatActivity implements HasSupportFragmentInjector {
     @Inject
     protected ViewModelProvider.Factory viewModelFactory;
     protected Navigator navigator;
+    @Inject
+    DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,18 +41,9 @@ public class BaseActivity extends AppCompatActivity implements LifecycleRegistry
         setHomeEnabled(false);
     }
 
-    @Override
-    public LifecycleRegistry getLifecycle() {
-        return registry;
-    }
-
     protected void toast(@NonNull final String message) {
         Objects.requireNonNull(message, "message cannot be null");
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    protected void notifyNoData() {
-        toast("No Data Available. Check later.");
     }
 
     protected <T extends ViewModel> T getViewModel(final Class<T> cls) {
@@ -74,13 +62,12 @@ public class BaseActivity extends AppCompatActivity implements LifecycleRegistry
         }
     }
 
-    protected void dismissKeyboard(IBinder windowToken) {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(windowToken, 0);
-    }
-
     public Integer itemId() {
         return getIntent().getIntExtra(Navigator.KEY_ITEM_ID, - 1);
     }
 
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return dispatchingAndroidInjector;
+    }
 }

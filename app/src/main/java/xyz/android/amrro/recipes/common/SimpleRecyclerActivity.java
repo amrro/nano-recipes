@@ -54,7 +54,7 @@ public abstract class SimpleRecyclerActivity<M, T extends DataListAdapter> exten
                 this.adapter.replace(newData);
                 setLoading(false);
             } else {
-                notifyNoData();
+                toast("No Data Available. Check later.");
             }
         }
     }

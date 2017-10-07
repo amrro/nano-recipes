@@ -52,7 +52,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                tools:text="Introduction to Nutella Pie" />
+                tools:text="Introduction to Noella Pie" />
 
 
         </LinearLayout>
