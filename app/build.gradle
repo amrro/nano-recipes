@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "xyz.android.amrro.recipes"
         minSdkVersion 21
@@ -30,11 +30,11 @@ android {
 }
 
 ext {
-    supportLibVersion = '26.0.1'
+    supportLibVersion = '26.1.0'
     retrofit = '2.3.0'
     okhttp_version = '3.8.0'
     dagger_version = "2.11"
-    arch_version = '1.0.0-alpha8'
+    arch_version = '1.0.0-beta2'
     mockito_version = "2.8.47"
 }
 
@@ -51,9 +51,9 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.jakewharton.timber:timber:4.5.1'
 
-    implementation 'com.github.bumptech.glide:glide:4.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.1.1'
     // Arch
-    implementation "android.arch.lifecycle:runtime:$arch_version"
+    implementation "android.arch.lifecycle:runtime:1.0.0"
     implementation "android.arch.lifecycle:extensions:$arch_version"
     implementation "android.arch.persistence.room:runtime:$arch_version"
     annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
