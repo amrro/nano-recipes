@@ -21,7 +21,7 @@ import static android.support.v4.app.NavUtils.navigateUpFromSameTask;
  * @param <T> adapter.
  */
 @SuppressWarnings("unchecked")
-public abstract class SimpleRecyclerActivity<M, T extends DataListAdapter> extends BaseActivity {
+public abstract class RecyclerActivity<M, T extends DataListAdapter> extends BaseActivity {
 
     public boolean twoPane;
     private ActivityListBinding binding;
@@ -74,9 +74,5 @@ public abstract class SimpleRecyclerActivity<M, T extends DataListAdapter> exten
 
     protected void setLoading(final Boolean isLoading) {
         binding.setLoading(isLoading);
-    }
-
-    protected void setNoData(final Boolean noData) {
-
     }
 }

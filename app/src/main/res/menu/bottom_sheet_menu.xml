@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_ingredient"
+        android:enabled="true"
+        android:icon="@drawable/ic_ingredients"
+        android:title="@string/ingredients" />
+    <item
+        android:id="@+id/nav_steps"
+        android:enabled="true"
+        android:icon="@drawable/ic_steps"
+        android:title="@string/steps" />
+
+</menu>

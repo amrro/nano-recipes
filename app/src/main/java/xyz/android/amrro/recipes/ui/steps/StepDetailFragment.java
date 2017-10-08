@@ -20,7 +20,6 @@ import xyz.android.amrro.recipes.RecipeVideoPlayer;
 import xyz.android.amrro.recipes.common.BaseFragment;
 import xyz.android.amrro.recipes.data.model.Step;
 import xyz.android.amrro.recipes.databinding.FragmentStepDetailBinding;
-import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
 
 /**
  * A fragment representing a single Step detail screen.

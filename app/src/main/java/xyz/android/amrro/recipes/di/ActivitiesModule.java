@@ -3,7 +3,7 @@ package xyz.android.amrro.recipes.di;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 import xyz.android.amrro.recipes.ui.main.HomeActivity;
-import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
+import xyz.android.amrro.recipes.ui.recipe.BakingActivity;
 import xyz.android.amrro.recipes.ui.steps.StepsSliderActivity;
 
 /**
@@ -22,5 +22,5 @@ abstract class ActivitiesModule {
     abstract StepsSliderActivity contributesStepsActivity();
 
     @ContributesAndroidInjector
-    abstract RecipeDetailActivity contributesRecipeDetailActivity();
+    abstract BakingActivity contributesBakingActivity();
 }

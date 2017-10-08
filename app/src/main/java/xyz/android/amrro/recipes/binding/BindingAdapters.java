@@ -16,6 +16,16 @@ public class BindingAdapters {
         view.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
+    @BindingAdapter("showView")
+    public static void showView(View view, boolean show) {
+        view.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @BindingAdapter("hideView")
+    public static void hideView(View view, boolean hide) {
+        showView(view, ! hide);
+    }
+
     @BindingAdapter("quantity")
     public static void quantity(TextView tv, Ingredient ingredient) {
         tv.setText(String.format("%s %s", ingredient.getQuantity(), ingredient.getMeasure()));

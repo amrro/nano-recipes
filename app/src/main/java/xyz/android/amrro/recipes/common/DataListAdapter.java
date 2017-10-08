@@ -30,7 +30,7 @@ public abstract class DataListAdapter<T, V extends ViewDataBinding>
     private int dataVersion = 0;
 
     public DataListAdapter(final OnItemClickedListener<T> listener) {
-        this.listener = Objects.requireNonNull(listener, "listener cannot be null");
+        this.listener = listener;
     }
 
     @Override

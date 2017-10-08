@@ -1,4 +1,4 @@
-package xyz.android.amrro.recipes.ui.recipe;
+package xyz.android.amrro.recipes.ui.recipe.step;
 
 import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;

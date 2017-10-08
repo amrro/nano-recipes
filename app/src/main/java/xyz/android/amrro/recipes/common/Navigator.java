@@ -8,13 +8,13 @@ import java.util.Objects;
 
 import xyz.android.amrro.recipes.data.model.Recipe;
 import xyz.android.amrro.recipes.data.model.Step;
-import xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity;
+import xyz.android.amrro.recipes.ui.recipe.BakingActivity;
 import xyz.android.amrro.recipes.ui.steps.StepDetailFragment;
 import xyz.android.amrro.recipes.ui.steps.StepsSliderActivity;
 
 
 final public class Navigator {
-    static final String KEY_ITEM_ID = "KEY_RECIPE_ID";
+    public static final String KEY_ITEM_ID = "KEY_RECIPE_ID";
     static final String KEY_ITEM_TITLE = "KEY_ITEM_TITLE";
     private final Context context;
 
@@ -23,7 +23,7 @@ final public class Navigator {
     }
 
     public void toRecipeDetails(@NonNull final Recipe recipe) {
-        final Intent intent = new Intent(context, RecipeDetailActivity.class);
+        final Intent intent = new Intent(context, BakingActivity.class);
         intent.putExtra(KEY_ITEM_ID, recipe.id)
                 .putExtra(KEY_ITEM_TITLE, recipe.name);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
