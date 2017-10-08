@@ -2,11 +2,13 @@ package xyz.android.amrro.recipes.common;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,10 +43,11 @@ public abstract class RecyclerFragment<M, A extends DataListAdapter> extends Bas
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initRecyclerView();
+        setUpRecyclerView();
     }
 
-    private void initRecyclerView() {
+    @CallSuper
+    protected void setUpRecyclerView() {
         adapter = Objects.requireNonNull(createAdapter());
         binding.list.setAdapter(adapter);
         binding.list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -74,6 +77,10 @@ public abstract class RecyclerFragment<M, A extends DataListAdapter> extends Bas
                 setNoData(R.string.error_happened, R.drawable.ic_cloud_off_black_24dp);
             }
         }
+    }
+
+    protected RecyclerView getRecyclerView() {
+        return binding.list;
     }
 
     protected abstract A createAdapter();

@@ -51,7 +51,7 @@
 
                 <ProgressBar
                     android:id="@android:id/empty"
-                    visibleGone="@{loading}"
+                    showView="@{loading}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -64,7 +64,7 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/list"
-                    visibleGone="@{! loading}"
+                    hideView="@{loading}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:listitem="@layout/cart_recipe" />

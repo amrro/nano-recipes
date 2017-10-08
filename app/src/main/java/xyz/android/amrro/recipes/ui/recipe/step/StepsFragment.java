@@ -28,7 +28,7 @@ public class StepsFragment extends RecyclerFragment<Step, StepsAdapter> {
 
     @Override
     protected StepsAdapter createAdapter() {
-        return new StepsAdapter(step -> toast(step.description));
+        return new StepsAdapter(step -> navigator.toSteps(recipeId, step));
     }
 
     @Override
