@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--suppress AndroidUnknownAttribute -->
+    <data class="SimpleListBinding">
+
+        <variable
+            name="loading"
+            type="boolean" />
+
+        <variable
+            name="noData"
+            type="boolean" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <ProgressBar
+            android:id="@android:id/empty"
+            hideView="@{noData}"
+            showView="@{loading}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            tools:visibility="gone" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:name="xyz.android.amrro.popularmovies.common.SimpleRecyclerFragment"
+            hideView="@{loading || noData}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:context="xyz.android.amrro.popularmovies.common.SimpleRecyclerFragment"
+            tools:listitem="@layout/card_step"
+            tools:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/no_data_icon"
+            showView="@{noData}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:srcCompat="@drawable/ic_cloud_off_black_24dp"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/no_data_message"
+            showView="@{noData}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/no_data_icon"
+            app:layout_constraintStart_toStartOf="@+id/no_data_icon"
+            app:layout_constraintTop_toBottomOf="@+id/no_data_icon"
+            tools:text="No ____ available." />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.41" />
+    </android.support.constraint.ConstraintLayout>
+</layout>
