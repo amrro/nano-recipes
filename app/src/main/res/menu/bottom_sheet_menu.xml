@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/action_info"
+        android:id="@+id/nav_ingredient"
         android:enabled="true"
-        android:icon="@drawable/example_appwidget_preview"
-        android:title="Ingredients" />
+        android:icon="@drawable/ic_ingredients"
+        android:title="@string/ingredients" />
     <item
-        android:id="@+id/action_trailers"
+        android:id="@+id/nav_steps"
         android:enabled="true"
-        android:icon="@drawable/ic_cloud_off_black_24dp"
-        android:title="Steps" />
+        android:icon="@drawable/ic_steps"
+        android:title="@string/steps" />
 
 </menu>

@@ -14,7 +14,7 @@ import xyz.android.amrro.recipes.ui.steps.StepsSliderActivity;
 
 
 final public class Navigator {
-    static final String KEY_ITEM_ID = "KEY_RECIPE_ID";
+    public static final String KEY_ITEM_ID = "KEY_RECIPE_ID";
     static final String KEY_ITEM_TITLE = "KEY_ITEM_TITLE";
     private final Context context;
 

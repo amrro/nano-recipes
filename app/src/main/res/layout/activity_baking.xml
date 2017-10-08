@@ -28,7 +28,9 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <include layout="@layout/content_baking" />
+        <include
+            android:id="@+id/content"
+            layout="@layout/content_baking" />
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>
