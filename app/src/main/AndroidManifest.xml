@@ -15,25 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-
         <activity
             android:name=".ui.main.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".ui.recipe.RecipeDetailActivity"
-            android:parentActivityName=".ui.main.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="xyz.android.amrro.recipes.ui.main.HomeActivity" />
-        </activity>
-
         <activity
             android:name=".ui.steps.StepsSliderActivity"
             android:label="@string/title_step_detail"
@@ -44,7 +34,6 @@
                 android:value="xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity" />
         </activity>
 
-
         <receiver android:name=".ui.widget.IngredientsWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -54,6 +43,16 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/ingredients_widget_info" />
         </receiver>
+
+        <activity
+            android:name=".ui.recipe.BakingActivity"
+            android:label="@string/title_activity_baking"
+            android:parentActivityName=".ui.main.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="xyz.android.amrro.recipes.ui.main.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>
