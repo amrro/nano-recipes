@@ -1,7 +1,9 @@
 package xyz.android.amrro.recipes.common;
 
 import android.app.Activity;
+import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
@@ -34,8 +36,12 @@ public class BaseFragment extends Fragment {
         navigator = new Navigator(activity);
     }
 
-    protected void taost(@NonNull final String message) {
+    protected void toast(@NonNull final String message) {
         Objects.requireNonNull(message, "message cannot be null");
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    protected <T extends ViewModel> T getViewModel(final Class<T> cls) {
+        return ViewModelProviders.of(this, viewModelFactory).get(cls);
     }
 }

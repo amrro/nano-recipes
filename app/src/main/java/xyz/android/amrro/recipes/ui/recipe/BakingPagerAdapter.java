@@ -24,9 +24,9 @@ public final class BakingPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return StepsFragment.newInstance(recipeId);
-            case 1:
                 return IngredientsFragment.newInstance(recipeId);
+            case 1:
+                return StepsFragment.newInstance(recipeId);
             default:
                 return null;
         }
