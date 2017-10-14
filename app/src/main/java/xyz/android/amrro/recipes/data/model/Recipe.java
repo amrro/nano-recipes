@@ -1,14 +1,34 @@
 package xyz.android.amrro.recipes.data.model;
 
-import android.support.annotation.NonNull;
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
 import java.util.List;
-import java.util.Objects;
 
+@AutoValue
+public abstract class Recipe {
+    public static Recipe create(Integer id, String name, List<Ingredient> ingredients, List<Step> steps, Integer servings, String image) {
+        return new AutoValue_Recipe(id, name, ingredients, steps, servings, image);
+    }
 
-public final class Recipe {
+    public static TypeAdapter<Recipe> typeAdapter(Gson gson) {
+        return new AutoValue_Recipe.GsonTypeAdapter(gson);
+    }
 
-    @NonNull
+    public abstract Integer id();
+
+    public abstract String name();
+
+    public abstract List<Ingredient> ingredients();
+
+    public abstract List<Step> steps();
+
+    public abstract Integer servings();
+
+    public abstract String image();
+
+    /*@NonNull
     final public Integer id;
     @NonNull
     final public String name;
@@ -69,5 +89,5 @@ public final class Recipe {
                 ", servings=" + servings +
                 ", image='" + image + '\'' +
                 '}';
-    }
+    }*/
 }

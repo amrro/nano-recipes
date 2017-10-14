@@ -28,7 +28,7 @@ import dagger.android.support.HasSupportFragmentInjector;
 @SuppressLint("Registered")
 public class BaseActivity extends AppCompatActivity implements HasSupportFragmentInjector {
     @Inject
-    protected ViewModelProvider.Factory viewModelFactory;
+    public ViewModelProvider.Factory viewModelFactory;
     protected Navigator navigator;
     @Inject
     DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;

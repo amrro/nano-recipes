@@ -37,7 +37,7 @@
             tools:context="net.medvey.apps.medvey.ui.surveys.SurveysListActivitySimple">
 
             <ProgressBar
-                android:id="@android:id/empty"
+                android:id="@+id/progress_bar"
                 showView="@{loading}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
