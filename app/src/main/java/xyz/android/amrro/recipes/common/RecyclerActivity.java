@@ -43,8 +43,8 @@ public abstract class RecyclerActivity<M, T extends DataListAdapter> extends Bas
 
     private void setUpRecycler() {
         adapter = Objects.requireNonNull(createAdapter(), "adapter cannot be null.");
-        binding.list.setAdapter(adapter);
-        binding.list.setLayoutManager(new LinearLayoutManager(this));
+        binding.recycler.setAdapter(adapter);
+        binding.recycler.setLayoutManager(new LinearLayoutManager(this));
     }
 
     protected void updateAdapter(@NonNull final List<M> newData) {

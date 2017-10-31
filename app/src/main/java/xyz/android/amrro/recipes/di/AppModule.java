@@ -26,7 +26,6 @@ public class AppModule {
         this.application = app;
     }
 
-
     @Singleton
     @Provides
     public Application provideApplication() {

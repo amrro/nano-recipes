@@ -49,8 +49,8 @@ public abstract class RecyclerFragment<M, A extends DataListAdapter> extends Bas
     @CallSuper
     protected void setUpRecyclerView() {
         adapter = Objects.requireNonNull(createAdapter());
-        binding.list.setAdapter(adapter);
-        binding.list.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView.setAdapter(adapter);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         setLoading(true);
         binding.setNoData(false);
         updateList();
@@ -80,7 +80,7 @@ public abstract class RecyclerFragment<M, A extends DataListAdapter> extends Bas
     }
 
     protected RecyclerView getRecyclerView() {
-        return binding.list;
+        return binding.recyclerView;
     }
 
     protected abstract A createAdapter();
