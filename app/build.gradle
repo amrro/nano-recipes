@@ -29,6 +29,11 @@ android {
     }
 }
 
+android.applicationVariants.all {
+    def aptOutputDir = new File(buildDir, "generated/source/apt/${it.unitTestVariant.dirName}")
+    it.unitTestVariant.addJavaSourceFoldersToModel(aptOutputDir)
+}
+
 ext {
     supportLibVersion = '26.1.0'
     retrofit = '2.3.0'
@@ -91,4 +96,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:mockwebserver:3.9.0'
     androidTestCompile 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0'
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.1'
+    androidTestCompile 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0'
+
+    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 }

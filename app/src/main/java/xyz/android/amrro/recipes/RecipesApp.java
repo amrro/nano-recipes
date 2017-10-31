@@ -9,6 +9,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import timber.log.Timber;
+import xyz.android.amrro.recipes.di.AppComponent;
 import xyz.android.amrro.recipes.di.AppModule;
 import xyz.android.amrro.recipes.di.DaggerAppComponent;
 
@@ -18,7 +19,7 @@ import xyz.android.amrro.recipes.di.DaggerAppComponent;
  * Initialize main objects for whole application.
  */
 
-public final class RecipesApp extends Application implements HasActivityInjector {
+public class RecipesApp extends Application implements HasActivityInjector {
 
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
@@ -31,10 +32,13 @@ public final class RecipesApp extends Application implements HasActivityInjector
             Timber.plant(new Timber.DebugTree());
         }
 
-        DaggerAppComponent.builder()
+        component().inject(this);
+    }
+
+    protected AppComponent component() {
+        return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
-                .build()
-                .inject(this);
+                .build();
     }
 
     @Override
