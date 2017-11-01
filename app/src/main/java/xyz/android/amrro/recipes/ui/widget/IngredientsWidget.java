@@ -32,8 +32,23 @@ public class IngredientsWidget extends AppWidgetProvider {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget);
 
+        setRemoteAdapter(context, views, appWidgetId);
+
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
+    }
+
+    /**
+     * Sets the remote adapter used to fill in the list items
+     *
+     * @param views    RemoteViews to set the RemoteAdapter
+     * @param widgetId
+     */
+    private static void setRemoteAdapter(Context context, @NonNull final RemoteViews views, int widgetId) {
+        final Intent intent = new Intent(context, IngredientsListService.class);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+
+        views.setRemoteAdapter(R.id.widget_ingredients_list, intent);
     }
 
     @Override

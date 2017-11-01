@@ -8,7 +8,7 @@ import xyz.android.amrro.recipes.ui.widget.IngredientsWidget;
  * To inject the app widgets.
  */
 @Module
-public abstract class WidgetsModule {
+abstract class WidgetsModule {
 
     @ContributesAndroidInjector
     abstract IngredientsWidget contributesIngredientsWidget();
