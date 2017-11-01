@@ -40,7 +40,7 @@ public class StepsFragment extends RecyclerFragment<Step, StepsAdapter> {
         SingleRecipeViewModel model = getViewModel(SingleRecipeViewModel.class);
         model.setId(recipeId).recipe().observe(this, recipe1 -> {
             if (recipe1 != null) {
-                updateAdapter(recipe1.steps);
+                updateAdapter(recipe1.steps());
             }
         });
     }

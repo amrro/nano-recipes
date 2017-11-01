@@ -14,6 +14,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import xyz.android.amrro.recipes.R;
 import xyz.android.amrro.recipes.data.api.RecipesService;
+import xyz.android.amrro.recipes.utils.AutoValueGson_AutoValueGsonFactory;
 import xyz.android.amrro.recipes.utils.retrofit.LiveDataCallAdapterFactory;
 
 /**
@@ -25,11 +26,18 @@ import xyz.android.amrro.recipes.utils.retrofit.LiveDataCallAdapterFactory;
 @Module
 public class NetModule {
 
+    @Singleton
+    @Provides
+    public AutoValueGson_AutoValueGsonFactory providesFactory() {
+        return new AutoValueGson_AutoValueGsonFactory();
+    }
 
     @Singleton
     @Provides
-    public Gson provideGson() {
-        return new GsonBuilder().create();
+    public Gson provideGson(AutoValueGson_AutoValueGsonFactory factory) {
+        return new GsonBuilder()
+                .registerTypeAdapterFactory(factory)
+                .create();
     }
 
     @Singleton

@@ -15,7 +15,7 @@ import xyz.android.amrro.recipes.data.api.ApiResponse;
 import xyz.android.amrro.recipes.data.model.Recipe;
 
 
-public final class RecipesViewModel extends ViewModel {
+public class RecipesViewModel extends ViewModel {
 
     private LiveData<ApiResponse<List<Recipe>>> recipes;
     private MutableLiveData<String> retry = new MutableLiveData<>();

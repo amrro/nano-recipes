@@ -40,8 +40,6 @@ public abstract class DataListAdapter<T, V extends ViewDataBinding>
         return new DataViewHolder<>(binding);
     }
 
-    protected abstract V createBinding(LayoutInflater inflater, ViewGroup parent);
-
     @Override
     public final void onBindViewHolder(DataViewHolder<V> holder, int position) {
         //noinspection ConstantConditions
@@ -110,10 +108,12 @@ public abstract class DataListAdapter<T, V extends ViewDataBinding>
         }
     }
 
-    protected abstract void bind(V binding, T item);
-
     @Override
     public int getItemCount() {
         return items == null ? 0 : items.size();
     }
+
+    protected abstract V createBinding(LayoutInflater inflater, ViewGroup parent);
+
+    protected abstract void bind(V binding, T item);
 }

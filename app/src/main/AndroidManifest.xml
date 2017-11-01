@@ -24,14 +24,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.steps.StepsSliderActivity"
             android:label="@string/title_step_detail"
-            android:parentActivityName=".ui.recipe.RecipeDetailActivity"
+            android:parentActivityName=".ui.recipe.BakingActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="xyz.android.amrro.recipes.ui.recipe.RecipeDetailActivity" />
+                android:value="xyz.android.amrro.recipes.ui.recipe.BakingActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.recipe.BakingActivity"
+            android:label="@string/title_activity_baking"
+            android:parentActivityName=".ui.main.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="xyz.android.amrro.recipes.ui.main.HomeActivity" />
         </activity>
 
         <receiver android:name=".ui.widget.IngredientsWidget">
@@ -44,15 +55,7 @@
                 android:resource="@xml/ingredients_widget_info" />
         </receiver>
 
-        <activity
-            android:name=".ui.recipe.BakingActivity"
-            android:label="@string/title_activity_baking"
-            android:parentActivityName=".ui.main.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="xyz.android.amrro.recipes.ui.main.HomeActivity" />
-        </activity>
+
     </application>
 
 </manifest>

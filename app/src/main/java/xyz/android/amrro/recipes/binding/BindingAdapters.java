@@ -28,6 +28,6 @@ public class BindingAdapters {
 
     @BindingAdapter("quantity")
     public static void quantity(TextView tv, Ingredient ingredient) {
-        tv.setText(String.format("%s %s", ingredient.getQuantity(), ingredient.getMeasure()));
+        tv.setText(String.format("%s %s", ingredient.quantity(), ingredient.measure()));
     }
 }
