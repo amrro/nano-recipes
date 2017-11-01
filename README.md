@@ -10,6 +10,8 @@ Project for Nanodegree's Advanced android course
 * [Retrofit][retrofit]
 * [Glide][glide]
 
+![test](https://github.com/amrro/nano-recipes/blob/master/art/ezgif-4-4b7489313f.gif?raw=true)
+
 
 [mockwebserver]: https://github.com/square/okhttp/tree/master/mockwebserver
 [arch]: https://developer.android.com/arch
