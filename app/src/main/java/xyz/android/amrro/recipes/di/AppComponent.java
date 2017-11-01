@@ -13,7 +13,8 @@ import xyz.android.amrro.recipes.RecipesApp;
         AppModule.class,
         NetModule.class,
         ActivitiesModule.class,
-        FragmentsModule.class
+        FragmentsModule.class,
+        WidgetsModule.class
 })
 public interface AppComponent {
     void inject(RecipesApp recipesApp);

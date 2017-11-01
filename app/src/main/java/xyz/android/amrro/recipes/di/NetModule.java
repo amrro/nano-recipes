@@ -14,6 +14,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import xyz.android.amrro.recipes.R;
 import xyz.android.amrro.recipes.data.api.RecipesService;
+import xyz.android.amrro.recipes.data.api.WidgetService;
 import xyz.android.amrro.recipes.utils.AutoValueGson_AutoValueGsonFactory;
 import xyz.android.amrro.recipes.utils.retrofit.LiveDataCallAdapterFactory;
 
@@ -58,5 +59,16 @@ public class NetModule {
                 .client(client)
                 .build()
                 .create(RecipesService.class);
+    }
+
+    @Singleton
+    @Provides
+    public WidgetService provideWidgetService(Application application, OkHttpClient client, Gson gson) {
+        return new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .baseUrl(application.getString(R.string.api_url))
+                .client(client)
+                .build()
+                .create(WidgetService.class);
     }
 }

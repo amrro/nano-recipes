@@ -24,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.steps.StepsSliderActivity"
             android:label="@string/title_step_detail"
@@ -34,7 +33,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="xyz.android.amrro.recipes.ui.recipe.BakingActivity" />
         </activity>
-
         <activity
             android:name=".ui.recipe.BakingActivity"
             android:label="@string/title_activity_baking"
@@ -55,7 +53,9 @@
                 android:resource="@xml/ingredients_widget_info" />
         </receiver>
 
-
+        <service
+            android:name=".ui.widget.IngredientsListService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

@@ -17,6 +17,7 @@
         android:paddingBottom="5dp">
 
         <TextView
+            android:id="@+id/item_ingredient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{ingredient.ingredient}"
@@ -25,6 +26,7 @@
             tools:text="Graham Cracker crumbs" />
 
         <TextView
+            android:id="@+id/item_quantity"
             quantity="@{ingredient}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

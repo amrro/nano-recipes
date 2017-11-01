@@ -1,18 +1,15 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#09C"
     android:padding="@dimen/widget_margin">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/appwidget_text"
+    <ListView
+        android:id="@+id/widget_ingredients_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:background="#09C"
+        android:layout_height="match_parent"
         tools:listitem="@layout/ingredients_item" />
 
 </RelativeLayout>

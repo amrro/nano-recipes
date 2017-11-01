@@ -2,73 +2,67 @@ package xyz.android.amrro.recipes.ui.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.LifecycleRegistry;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
-import com.google.gson.Gson;
+import java.util.List;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import timber.log.Timber;
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import xyz.android.amrro.recipes.R;
-import xyz.android.amrro.recipes.data.api.RecipesService;
-import xyz.android.amrro.recipes.utils.retrofit.LiveDataCallAdapterFactory;
+import xyz.android.amrro.recipes.data.api.WidgetService;
+import xyz.android.amrro.recipes.data.model.Recipe;
 
 /**
  * Implementation of App Widget functionality.
  */
-public class IngredientsWidget extends AppWidgetProvider implements LifecycleOwner {
+public class IngredientsWidget extends AppWidgetProvider {
 
-    private LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
-    private RecipesService api;
+    @Inject
+    public WidgetService api;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget);
-//        views.setTextViewText(R.id.appwidget_text, widgetText);
+
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Timber.i("Action received: %s", intent.getAction());
-        api = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create(new Gson()))
-                .addCallAdapterFactory(new LiveDataCallAdapterFactory())
-                .baseUrl(context.getApplicationContext().getString(R.string.api_url))
-                .build()
-                .create(RecipesService.class);
-
+        AndroidInjection.inject(this, context);
         super.onReceive(context, intent);
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        /*RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget);
-        api.recipesCall().enqueue(
-                new Callback<List<Recipe>>() {
-                    @Override
-                    public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                        views.setRemoteAdapter();
-                    }
+        api.recipes().enqueue(new Callback<List<Recipe>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Recipe>> call, @NonNull Response<List<Recipe>> response) {
+                if (response.isSuccessful()) {
 
-                    @Override
-                    public void onFailure(Call<List<Recipe>> call, Throwable t) {
-
-                    }
                 }
-        );
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Recipe>> call, @NonNull Throwable t) {
+
+            }
+        });
+
+        // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
-        }*/
+        }
     }
 
     @Override
@@ -79,11 +73,6 @@ public class IngredientsWidget extends AppWidgetProvider implements LifecycleOwn
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
-    }
-
-    @Override
-    public LifecycleRegistry getLifecycle() {
-        return new LifecycleRegistry(this);
     }
 }
 

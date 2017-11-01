@@ -2,12 +2,14 @@ package xyz.android.amrro.recipes;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.BroadcastReceiver;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import dagger.android.HasBroadcastReceiverInjector;
 import timber.log.Timber;
 import xyz.android.amrro.recipes.di.AppComponent;
 import xyz.android.amrro.recipes.di.AppModule;
@@ -19,10 +21,14 @@ import xyz.android.amrro.recipes.di.DaggerAppComponent;
  * Initialize main objects for whole application.
  */
 
-public class RecipesApp extends Application implements HasActivityInjector {
+public class RecipesApp extends Application
+        implements HasActivityInjector, HasBroadcastReceiverInjector {
 
     @Inject
-    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+    DispatchingAndroidInjector<Activity> activityInjector;
+
+    @Inject
+    DispatchingAndroidInjector<BroadcastReceiver> receiverInjector;
 
     @Override
     public void onCreate() {
@@ -43,6 +49,11 @@ public class RecipesApp extends Application implements HasActivityInjector {
 
     @Override
     public AndroidInjector<Activity> activityInjector() {
-        return dispatchingAndroidInjector;
+        return activityInjector;
+    }
+
+    @Override
+    public AndroidInjector<BroadcastReceiver> broadcastReceiverInjector() {
+        return receiverInjector;
     }
 }
