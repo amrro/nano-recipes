@@ -49,7 +49,7 @@
             app:layoutManager="LinearLayoutManager"
             tools:context="xyz.android.amrro.popularmovies.common.SimpleRecyclerFragment"
             tools:listitem="@layout/card_step"
-            tools:visibility="gone" />
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/no_data_icon"
