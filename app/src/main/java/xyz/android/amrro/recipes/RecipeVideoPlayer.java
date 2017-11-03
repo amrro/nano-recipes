@@ -51,7 +51,7 @@ public final class RecipeVideoPlayer implements LifecycleObserver {
     }
 
     private void initializePlayer() {
-        if (player == null) {
+        if (player == null && playerView != null) {
             player = ExoPlayerFactory
                     .newSimpleInstance(
                             new DefaultRenderersFactory(context),

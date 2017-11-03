@@ -23,9 +23,6 @@ import xyz.android.amrro.recipes.databinding.FragmentStepDetailBinding;
 
 /**
  * A fragment representing a single Step detail screen.
- * This fragment is either contained in a {@link RecipeDetailActivity}
- * in two-pane mode (on tablets) or a {@link StepsSliderActivity}
- * on handsets.
  */
 public class StepDetailFragment extends BaseFragment {
 
