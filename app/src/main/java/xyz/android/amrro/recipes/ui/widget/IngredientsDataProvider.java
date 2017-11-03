@@ -130,10 +130,15 @@ public final class IngredientsDataProvider extends BroadcastReceiver
     }
 
     private List<Ingredient> getIngredients() {
+        final List<Ingredient> retList = new ArrayList<>();
         Type type = new TypeToken<List<Ingredient>>() {
         }.getType();
-        final String ingredientsJson = prefs.getString(KEY_INGREDIENTS, null);
-        return gson.fromJson(ingredientsJson, type);
+        final String ingredientsJson;
+        if (prefs != null) {
+            ingredientsJson = prefs.getString(KEY_INGREDIENTS, null);
+            retList.addAll(gson.fromJson(ingredientsJson, type));
+        }
 
+        return retList;
     }
 }

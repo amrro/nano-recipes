@@ -4,10 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!--suppress AndroidUnknownAttribute -->
-    <data>
-
-    </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

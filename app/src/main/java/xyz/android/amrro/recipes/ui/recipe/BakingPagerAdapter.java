@@ -14,10 +14,12 @@ public final class BakingPagerAdapter extends FragmentStatePagerAdapter {
     private static final int NUM_ITEMS = 2;
 
     private final Integer recipeId;
+    private final boolean isTwoPane;
 
-    BakingPagerAdapter(FragmentManager fm, final Integer recipeId) {
+    BakingPagerAdapter(FragmentManager fm, final Integer recipeId, final boolean isTwoPane) {
         super(fm);
         this.recipeId = Objects.requireNonNull(recipeId);
+        this.isTwoPane = isTwoPane;
     }
 
     @Override
@@ -26,7 +28,7 @@ public final class BakingPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return IngredientsFragment.newInstance(recipeId);
             case 1:
-                return StepsFragment.newInstance(recipeId);
+                return StepsFragment.newInstance(recipeId, isTwoPane);
             default:
                 return null;
         }

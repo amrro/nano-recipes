@@ -11,6 +11,7 @@ import xyz.android.amrro.recipes.databinding.BakingBinding;
 public class BakingActivity extends BaseActivity {
     private BakingBinding binding;
     private int currentItem;
+    private boolean isTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,10 +19,13 @@ public class BakingActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_baking);
         setSupportActionBar(binding.toolbar);
         setHomeEnabled(true);
+        // is on tablet?
+        isTwoPane = binding.stepDetailContainer != null;
 
-        BakingPagerAdapter adapter = new BakingPagerAdapter(getSupportFragmentManager(), itemId());
+        BakingPagerAdapter adapter = new BakingPagerAdapter(getSupportFragmentManager(), itemId(), isTwoPane);
         binding.content.pager.setAdapter(adapter);
         setUpTabs();
+
     }
 
     private void setUpTabs() {
