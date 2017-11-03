@@ -53,9 +53,17 @@
                 android:resource="@xml/ingredients_widget_info" />
         </receiver>
 
+        <receiver android:name=".ui.widget.IngredientsDataProvider">
+            <intent-filter>
+                <action android:name="xyz.android.amrro.recipes.ui.widget.APP_UPDATE_WIDGET" />
+            </intent-filter>
+        </receiver>
+
         <service
             android:name=".ui.widget.IngredientsListService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <service android:name=".ui.widget.IngredientsUpdateService" />
     </application>
 
 </manifest>

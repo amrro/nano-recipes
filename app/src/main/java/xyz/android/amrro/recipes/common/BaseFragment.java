@@ -41,6 +41,7 @@ public class BaseFragment extends Fragment {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
+
     protected <T extends ViewModel> T getViewModel(final Class<T> cls) {
         return ViewModelProviders.of(this, viewModelFactory).get(cls);
     }

@@ -1,51 +1,89 @@
 package xyz.android.amrro.recipes.ui.widget;
 
 import android.appwidget.AppWidgetManager;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+import timber.log.Timber;
 import xyz.android.amrro.recipes.R;
+import xyz.android.amrro.recipes.data.api.WidgetService;
 import xyz.android.amrro.recipes.data.model.Ingredient;
 
 
-public final class IngredientsDataProvider implements RemoteViewsService.RemoteViewsFactory {
-    final private List<Ingredient> ingredients = new ArrayList<>();
-    final private Context context;
-    private int appWidgetId;
+public final class IngredientsDataProvider extends BroadcastReceiver
+        implements RemoteViewsService.RemoteViewsFactory {
 
+    public static final String APP_UPDATE_WIDGET = "xyz.android.amrro.recipes.ui.widget.APP_UPDATE_WIDGET";
+    public static final String KEY_INGREDIENTS = "key-ingredients";
+    public static final String KEY_RECIPE_ID = "key-recipe-id";
+
+    final private List<Ingredient> ingredients = new ArrayList<>();
+    @Inject
+    WidgetService api;
+    @Inject
+    SharedPreferences prefs;
+    @Inject
+    Gson gson;
+    //    private int appWidgetId;
+    private Context context;
+    private int index = 0;
+
+    public IngredientsDataProvider() {
+    }
 
     IngredientsDataProvider(Context context, Intent intent) {
         this.context = context;
-        appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
-                AppWidgetManager.INVALID_APPWIDGET_ID);
+        /*appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                AppWidgetManager.INVALID_APPWIDGET_ID);*/
     }
 
-    @Override
-    public void onCreate() {
-        initData();
-    }
-
-    private void initData() {
-        ingredients.clear();
-        for (int index = 0; index < 10; index++) {
-            ingredients.add(
-                    Ingredient.create(
-                            Double.valueOf(String.valueOf(index)),
-                            "CUPS",
-                            "ingredient " + index
-                    )
-            );
+    private static void notifyWidgetsDataChanged(Context context) {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context.getApplicationContext(), IngredientsWidget.class));
+        //Trigger data update to handle the GridView widgets and force a data refresh
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_ingredients_list);
+        //Now update all widgets
+        for (int appWidgetId : appWidgetIds) {
+            IngredientsWidget.updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
 
     @Override
+    public void onReceive(Context context, Intent intent) {
+        AndroidInjection.inject(this, context);
+
+        final String action = intent.getAction();
+        if (action != null && action.equals(APP_UPDATE_WIDGET)) {
+            this.onDataSetChanged();
+            notifyWidgetsDataChanged(context);
+        }
+    }
+
+    @Override
+    public void onCreate() {
+    }
+
+
+    @Override
     public void onDataSetChanged() {
-        initData();
+        Timber.i(">>>>onDataSetChanged<<<<");
+        ingredients.clear();
+        ingredients.addAll(getIngredients());
     }
 
     @Override
@@ -69,7 +107,7 @@ public final class IngredientsDataProvider implements RemoteViewsService.RemoteV
 
     @Override
     public RemoteViews getLoadingView() {
-        return null;
+        return new RemoteViews(context.getPackageName(), R.layout.widget_loading);
     }
 
     @Override
@@ -89,5 +127,13 @@ public final class IngredientsDataProvider implements RemoteViewsService.RemoteV
 
     private String quantity(Ingredient ingredient) {
         return String.format("%s %s", ingredient.quantity(), ingredient.measure());
+    }
+
+    private List<Ingredient> getIngredients() {
+        Type type = new TypeToken<List<Ingredient>>() {
+        }.getType();
+        final String ingredientsJson = prefs.getString(KEY_INGREDIENTS, null);
+        return gson.fromJson(ingredientsJson, type);
+
     }
 }

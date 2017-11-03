@@ -34,12 +34,14 @@ public abstract class RecyclerFragment<M, A extends DataListAdapter> extends Bas
     public RecyclerFragment() {
     }
 
+    @CallSuper
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_simple_list, container, false);
         return binding.getRoot();
     }
 
+    @CallSuper
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
