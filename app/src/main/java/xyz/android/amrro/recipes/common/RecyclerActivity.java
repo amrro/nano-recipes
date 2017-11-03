@@ -3,7 +3,7 @@ package xyz.android.amrro.recipes.common;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.MenuItem;
 
 import java.util.List;
@@ -23,7 +23,6 @@ import static android.support.v4.app.NavUtils.navigateUpFromSameTask;
 @SuppressWarnings("unchecked")
 public abstract class RecyclerActivity<M, T extends DataListAdapter> extends BaseActivity {
 
-    public boolean twoPane;
     private ActivityListBinding binding;
     private T adapter;
 
@@ -35,7 +34,6 @@ public abstract class RecyclerActivity<M, T extends DataListAdapter> extends Bas
 
         final String title = getIntent().getStringExtra(Navigator.KEY_ITEM_TITLE);
         if (title != null) setActionBarTitle(title);
-        twoPane = binding.container != null;
         setUpRecycler();
         createList();
         setLoading(true);
@@ -44,7 +42,7 @@ public abstract class RecyclerActivity<M, T extends DataListAdapter> extends Bas
     private void setUpRecycler() {
         adapter = Objects.requireNonNull(createAdapter(), "adapter cannot be null.");
         binding.recycler.setAdapter(adapter);
-        binding.recycler.setLayoutManager(new LinearLayoutManager(this));
+        binding.recycler.setLayoutManager(new GridLayoutManager(this, getResources().getInteger(R.integer.span_count)));
     }
 
     protected void updateAdapter(@NonNull final List<M> newData) {
