@@ -1,27 +1,50 @@
 package xyz.android.amrro.recipes.data.model;
 
 
-import com.google.auto.value.AutoValue;
-import com.google.gson.Gson;
-import com.google.gson.TypeAdapter;
+import java.util.Objects;
 
-@AutoValue
-public abstract class Step {
-    public static Step create(Integer id, String shortDescription, String description, String videoURL, String thumbnailURL) {
-        return new AutoValue_Step(id, shortDescription, description, videoURL, thumbnailURL);
+@SuppressWarnings("WeakerAccess")
+public class Step {
+
+    public final Integer id;
+    public final String shortDescription;
+    public final String description;
+    public final String videoURL;
+    public final String thumbnailURL;
+
+    public Step(Integer id, String shortDescription, String description, String videoURL, String thumbnailURL) {
+        this.id = id;
+        this.shortDescription = shortDescription;
+        this.description = description;
+        this.videoURL = videoURL;
+        this.thumbnailURL = thumbnailURL;
     }
 
-    public static TypeAdapter<Step> typeAdapter(Gson gson) {
-        return new AutoValue_Step.GsonTypeAdapter(gson);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (! (o instanceof Step)) return false;
+        Step step = (Step) o;
+        return Objects.equals(id, step.id) &&
+                Objects.equals(shortDescription, step.shortDescription) &&
+                Objects.equals(description, step.description) &&
+                Objects.equals(videoURL, step.videoURL) &&
+                Objects.equals(thumbnailURL, step.thumbnailURL);
     }
 
-    public abstract Integer id();
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, shortDescription, description, videoURL, thumbnailURL);
+    }
 
-    public abstract String shortDescription();
-
-    public abstract String description();
-
-    public abstract String videoURL();
-
-    public abstract String thumbnailURL();
+    @Override
+    public String toString() {
+        return "Step{" +
+                "id=" + id +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", description='" + description + '\'' +
+                ", videoURL='" + videoURL + '\'' +
+                ", thumbnailURL='" + thumbnailURL + '\'' +
+                '}';
+    }
 }
