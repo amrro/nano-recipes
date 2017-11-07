@@ -2,6 +2,7 @@ package xyz.android.amrro.recipes.di;
 
 import android.app.Application;
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -32,6 +33,12 @@ public class AppModule {
     @Provides
     public Application provideApplication() {
         return application;
+    }
+
+    @Singleton
+    @Provides
+    public Context provideContext() {
+        return application.getApplicationContext();
     }
 
     @Singleton
