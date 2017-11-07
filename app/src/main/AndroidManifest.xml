@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
         <activity
             android:name=".ui.main.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -24,6 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.steps.StepsSliderActivity"
             android:label="@string/title_step_detail"
@@ -33,6 +35,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="xyz.android.amrro.recipes.ui.recipe.BakingActivity" />
         </activity>
+
         <activity
             android:name=".ui.recipe.BakingActivity"
             android:label="@string/title_activity_baking"
@@ -42,6 +45,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="xyz.android.amrro.recipes.ui.main.HomeActivity" />
         </activity>
+
+        <provider
+            android:name=".data.db.IngredientsContentProvider"
+            android:authorities="xyz.android.amrro.recipes.provider"
+            android:exported="true"
+            android:permission="com.example.android.contentprovidersample.provider.READ_WRITE" />
+
 
         <receiver android:name=".ui.widget.IngredientsWidget">
             <intent-filter>
@@ -63,7 +73,6 @@
             android:name=".ui.widget.IngredientsListService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <service android:name=".ui.widget.IngredientsUpdateService" />
     </application>
 
 </manifest>

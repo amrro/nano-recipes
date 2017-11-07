@@ -100,15 +100,15 @@ public class StepDetailFragment extends BaseFragment {
     private void updateUI(@NonNull final Step step) {
         // TODO: 8/14/17 handle nullity
         binding.setStep(step);
-        if (! TextUtils.isEmpty(step.videoURL())) {
+        if (! TextUtils.isEmpty(step.videoURL)) {
             binding.setNoVideo(false);
             final RecipeVideoPlayer player = new RecipeVideoPlayer(
                     getContext(),
-                    step.videoURL(),
+                    step.videoURL,
                     binding.playerView
             );
             getLifecycle().addObserver(player);
         }
-        binding.setNoVideo(TextUtils.isEmpty(step.videoURL()));
+        binding.setNoVideo(TextUtils.isEmpty(step.videoURL));
     }
 }

@@ -5,23 +5,16 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
 import timber.log.Timber;
 import xyz.android.amrro.recipes.R;
-import xyz.android.amrro.recipes.data.api.WidgetService;
+import xyz.android.amrro.recipes.data.db.IngredientsContentProvider;
 import xyz.android.amrro.recipes.data.model.Ingredient;
 
 
@@ -32,24 +25,14 @@ public final class IngredientsDataProvider extends BroadcastReceiver
     public static final String KEY_INGREDIENTS = "key-ingredients";
     public static final String KEY_RECIPE_ID = "key-recipe-id";
 
-    final private List<Ingredient> ingredients = new ArrayList<>();
     @Inject
-    WidgetService api;
-    @Inject
-    SharedPreferences prefs;
-    @Inject
-    Gson gson;
-    //    private int appWidgetId;
-    private Context context;
-    private int index = 0;
+    Context app;
+    private Cursor cursor;
 
     public IngredientsDataProvider() {
     }
 
-    IngredientsDataProvider(Context context, Intent intent) {
-        this.context = context;
-        /*appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
-                AppWidgetManager.INVALID_APPWIDGET_ID);*/
+    IngredientsDataProvider(Context context) {
     }
 
     private static void notifyWidgetsDataChanged(Context context) {
@@ -82,32 +65,41 @@ public final class IngredientsDataProvider extends BroadcastReceiver
     @Override
     public void onDataSetChanged() {
         Timber.i(">>>>onDataSetChanged<<<<");
-        ingredients.clear();
-        ingredients.addAll(getIngredients());
+        if (cursor != null) cursor.close();
+        if (app != null) {
+            cursor = app.getContentResolver().query(
+                    IngredientsContentProvider.URI_INGREDIENT, null,
+                    null, null, null
+            );
+        }
     }
 
     @Override
     public void onDestroy() {
-//        ingredients.clear();
+        cursor.close();
     }
 
     @Override
     public int getCount() {
-        return ingredients.size();
+        return cursor == null ? 0 : cursor.getCount();
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
-        final RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.card_ingredient);
-        Ingredient listItem = ingredients.get(position);
-        remoteView.setTextViewText(R.id.ingredient_name, listItem.ingredient());
-        remoteView.setTextViewText(R.id.ingredient_quantity, quantity(listItem));
+        if (cursor == null || cursor.getCount() == 0) return null;
+        final Ingredient ingredient = Ingredient.fromCursor(cursor, position);
+
+        Timber.i(">>>> ingredients: %s", ingredient.toString());
+
+        final RemoteViews remoteView = new RemoteViews(app.getPackageName(), R.layout.card_ingredient);
+        remoteView.setTextViewText(R.id.ingredient_name, ingredient.ingredient);
+        remoteView.setTextViewText(R.id.ingredient_quantity, quantity(ingredient));
         return remoteView;
     }
 
     @Override
     public RemoteViews getLoadingView() {
-        return new RemoteViews(context.getPackageName(), R.layout.widget_loading);
+        return null;
     }
 
     @Override
@@ -126,19 +118,7 @@ public final class IngredientsDataProvider extends BroadcastReceiver
     }
 
     private String quantity(Ingredient ingredient) {
-        return String.format("%s %s", ingredient.quantity(), ingredient.measure());
+        return String.format("%s %s", ingredient.quantity, ingredient.measure);
     }
 
-    private List<Ingredient> getIngredients() {
-        final List<Ingredient> retList = new ArrayList<>();
-        Type type = new TypeToken<List<Ingredient>>() {
-        }.getType();
-        final String ingredientsJson;
-        if (prefs != null) {
-            ingredientsJson = prefs.getString(KEY_INGREDIENTS, null);
-            retList.addAll(gson.fromJson(ingredientsJson, type));
-        }
-
-        return retList;
-    }
 }

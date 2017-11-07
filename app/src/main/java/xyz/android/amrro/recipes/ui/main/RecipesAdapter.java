@@ -31,10 +31,10 @@ public final class RecipesAdapter extends DataListAdapter<Recipe, CartRecipeBind
     @Override
     protected void bind(CartRecipeBinding binding, Recipe item) {
         binding.setRecipe(item);
-        binding.name.setText(item.name());
-        if (! item.image().isEmpty()) {
+        binding.name.setText(item.name);
+        if (! item.image.isEmpty()) {
             Glide.with(binding.getRoot())
-                    .load(item.image())
+                    .load(item.image)
                     .into(binding.image);
         }
     }
