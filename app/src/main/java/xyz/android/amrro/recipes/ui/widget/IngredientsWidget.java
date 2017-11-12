@@ -45,6 +45,12 @@ public class IngredientsWidget extends AppWidgetProvider {
         views.setRemoteAdapter(R.id.widget_ingredients_list, intent);
     }
 
+    public static void updateWidgets(Context context, AppWidgetManager manager, int[] widgetIds) {
+        for (int widgetId : widgetIds) {
+            updateAppWidget(context, manager, widgetId);
+        }
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         AndroidInjection.inject(this, context);
@@ -69,24 +75,7 @@ public class IngredientsWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        /*api.recipes().enqueue(new Callback<List<Recipe>>() {
-            @Override
-            public void onResponse(@NonNull Call<List<Recipe>> call, @NonNull Response<List<Recipe>> response) {
-                if (response.isSuccessful()) {
-
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<List<Recipe>> call, @NonNull Throwable t) {
-
-            }
-        });*/
-
-        // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
+        WidgetUpdateService.startActionUpdateWidgets(context);
     }
 
     @Override

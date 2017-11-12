@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.example.android.contentprovidersample.provider.READ_WRITE" />
 
     <application
         android:name=".RecipesApp"
@@ -50,6 +51,7 @@
             android:name=".data.db.IngredientsContentProvider"
             android:authorities="xyz.android.amrro.recipes.provider"
             android:exported="true"
+            android:grantUriPermissions="true"
             android:permission="com.example.android.contentprovidersample.provider.READ_WRITE" />
 
 
@@ -63,15 +65,13 @@
                 android:resource="@xml/ingredients_widget_info" />
         </receiver>
 
-        <receiver android:name=".ui.widget.IngredientsDataProvider">
-            <intent-filter>
-                <action android:name="xyz.android.amrro.recipes.ui.widget.APP_UPDATE_WIDGET" />
-            </intent-filter>
-        </receiver>
-
         <service
             android:name=".ui.widget.IngredientsListService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+
+        <service android:name=".ui.widget.WidgetUpdateService" />
+
 
     </application>
 

@@ -1,6 +1,5 @@
 package xyz.android.amrro.recipes.ui.recipe.ingredient;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ import xyz.android.amrro.recipes.common.RecyclerFragment;
 import xyz.android.amrro.recipes.data.db.IngredientsContentProvider;
 import xyz.android.amrro.recipes.data.model.Ingredient;
 import xyz.android.amrro.recipes.ui.recipe.SingleRecipeViewModel;
-import xyz.android.amrro.recipes.ui.widget.IngredientsDataProvider;
+import xyz.android.amrro.recipes.ui.widget.WidgetUpdateService;
 
 public class IngredientsFragment extends RecyclerFragment<Ingredient, IngredientsAdapter> {
     @Inject
@@ -104,10 +103,11 @@ public class IngredientsFragment extends RecyclerFragment<Ingredient, Ingredient
                 throw new IllegalStateException("Inserted values doesn't match");
             }
 
-            Intent intent = new Intent();
-            intent.setAction(IngredientsDataProvider.APP_UPDATE_WIDGET);
-            intent.putExtra(IngredientsDataProvider.KEY_RECIPE_ID, recipeId);
-            getActivity().sendBroadcast(intent);
+           /* Intent intent = new Intent();
+            intent.setAction(IngredientsRemoteViewsFactory.APP_UPDATE_WIDGET);
+            intent.putExtra(IngredientsRemoteViewsFactory.KEY_RECIPE_ID, recipeId);
+            getActivity().sendBroadcast(intent);*/
+            WidgetUpdateService.startActionUpdateWidgets(getContext());
         });
     }
 }
