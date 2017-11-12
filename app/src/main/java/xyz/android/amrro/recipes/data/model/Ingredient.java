@@ -14,9 +14,9 @@ import java.util.Objects;
 public class Ingredient {
     public static final String TABLE_NAME = "ingredients";
 
-    public static final String COLUMN_QUANTITY = "column_quantity";
-    public static final String COLUMN_MEASURE = "column_measure";
-    public static final String COLUMN_INGREDIENT_NAME = "column_ingredient_name";
+    public static final String COLUMN_QUANTITY = "quantity";
+    public static final String COLUMN_MEASURE = "measure";
+    public static final String COLUMN_INGREDIENT_NAME = "ingredient";
     public final Double quantity;
     public final String measure;
     public final String ingredient;
@@ -65,7 +65,7 @@ public class Ingredient {
         final int ingredientIndex = cursor.getColumnIndex(Ingredient.COLUMN_INGREDIENT_NAME);
         final int quantityIndex = cursor.getColumnIndex(Ingredient.COLUMN_QUANTITY);
 
-        final double quantity = cursor.getDouble(quantityIndex);
+        final double quantity = quantityIndex != - 1 ? cursor.getDouble(quantityIndex) : 0.0;
         final String measure = cursor.getString(measureIndex);
         final String ingredient = cursor.getString(ingredientIndex);
 

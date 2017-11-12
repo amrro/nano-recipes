@@ -2,10 +2,9 @@ package xyz.android.amrro.recipes.ui.widget;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Binder;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-
-import javax.inject.Inject;
 
 import timber.log.Timber;
 import xyz.android.amrro.recipes.R;
@@ -14,32 +13,12 @@ import xyz.android.amrro.recipes.data.model.Ingredient;
 
 
 public final class IngredientsRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
-
-    public static final String APP_UPDATE_WIDGET = "xyz.android.amrro.recipes.ui.widget.APP_UPDATE_WIDGET";
-    public static final String KEY_INGREDIENTS = "key-ingredients";
-    public static final String KEY_RECIPE_ID = "key-recipe-id";
-
-    @Inject
-    Context app;
-
-
     Context context;
     Cursor cursor;
 
     IngredientsRemoteViewsFactory(Context context) {
         this.context = context;
     }
-
-    /*private static void notifyWidgetsDataChanged(Context context) {
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context.getApplicationContext(), IngredientsWidget.class));
-        //Trigger data update to handle the GridView widgets and force a data refresh
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_ingredients_list);
-        //Now update all widgets
-        for (int appWidgetId : appWidgetIds) {
-            IngredientsWidget.updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
-    }*/
 
     @Override
     public void onCreate() {
@@ -49,20 +28,17 @@ public final class IngredientsRemoteViewsFactory implements RemoteViewsService.R
     @Override
     public void onDataSetChanged() {
         Timber.i(">>>>onDataSetChanged<<<<");
-        /*if (cursor != null) cursor.close();
-        if (app != null) {
-            cursor = app.getContentResolver().query(
+//        Permission Denial
+        final long token = Binder.clearCallingIdentity();
+        try {
+            if (cursor != null) cursor.close();
+            cursor = context.getContentResolver().query(
                     IngredientsContentProvider.URI_INGREDIENT, null,
                     null, null, null
             );
-        }*/
-        // Get all plant info ordered by creation time
-
-        if (cursor != null) cursor.close();
-        cursor = context.getContentResolver().query(
-                IngredientsContentProvider.URI_INGREDIENT, null,
-                null, null, null
-        );
+        } finally {
+            Binder.restoreCallingIdentity(token);
+        }
 
     }
 
@@ -80,7 +56,7 @@ public final class IngredientsRemoteViewsFactory implements RemoteViewsService.R
     public RemoteViews getViewAt(int position) {
         if (cursor == null || cursor.getCount() == 0) return null;
         final Ingredient ingredient = Ingredient.fromCursor(cursor, position);
-        final RemoteViews remoteView = new RemoteViews(app.getPackageName(), R.layout.card_ingredient);
+        final RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.card_ingredient);
         remoteView.setTextViewText(R.id.ingredient_name, ingredient.ingredient);
         remoteView.setTextViewText(R.id.ingredient_quantity, quantity(ingredient));
         return remoteView;

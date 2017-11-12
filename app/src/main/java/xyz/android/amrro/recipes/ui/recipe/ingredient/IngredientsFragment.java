@@ -88,9 +88,6 @@ public class IngredientsFragment extends RecyclerFragment<Ingredient, Ingredient
     private void updateWidget(final int recipeId, final List<Ingredient> ingredients) {
         // cache data.
         cacheIngredients(ingredients);
-        // trigger onDataSetChanged().
-
-
     }
 
     private void cacheIngredients(List<Ingredient> ingredients) {

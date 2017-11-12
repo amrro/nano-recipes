@@ -51,7 +51,7 @@
             android:name=".data.db.IngredientsContentProvider"
             android:authorities="xyz.android.amrro.recipes.provider"
             android:exported="true"
-            android:grantUriPermissions="true"
+            android:grantUriPermissions="false"
             android:permission="com.example.android.contentprovidersample.provider.READ_WRITE" />
 
 
