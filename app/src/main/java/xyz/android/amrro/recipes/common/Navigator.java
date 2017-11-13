@@ -24,8 +24,8 @@ public class Navigator {
 
     public void toRecipeDetails(@NonNull final Recipe recipe) {
         final Intent intent = new Intent(context, BakingActivity.class);
-        intent.putExtra(KEY_ITEM_ID, recipe.id())
-                .putExtra(KEY_ITEM_TITLE, recipe.name());
+        intent.putExtra(KEY_ITEM_ID, recipe.id)
+                .putExtra(KEY_ITEM_TITLE, recipe.name);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
     }
@@ -33,7 +33,7 @@ public class Navigator {
     public void toSteps(Integer recipeId, Step step) {
         final Intent intent = new Intent(context, StepsSliderActivity.class);
         intent.putExtra(StepDetailFragment.ARG_RECIPE_ID, recipeId)
-                .putExtra(StepDetailFragment.ARG_STEP_ID, step.id());
+                .putExtra(StepDetailFragment.ARG_STEP_ID, step.id);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
     }

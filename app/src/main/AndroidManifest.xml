@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.example.android.contentprovidersample.provider.READ_WRITE" />
 
     <application
         android:name=".RecipesApp"
@@ -15,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
         <activity
             android:name=".ui.main.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -24,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.steps.StepsSliderActivity"
             android:label="@string/title_step_detail"
@@ -33,6 +36,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="xyz.android.amrro.recipes.ui.recipe.BakingActivity" />
         </activity>
+
         <activity
             android:name=".ui.recipe.BakingActivity"
             android:label="@string/title_activity_baking"
@@ -42,6 +46,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="xyz.android.amrro.recipes.ui.main.HomeActivity" />
         </activity>
+
+        <provider
+            android:name=".data.db.IngredientsContentProvider"
+            android:authorities="xyz.android.amrro.recipes.provider"
+            android:exported="true"
+            android:grantUriPermissions="false"
+            android:permission="com.example.android.contentprovidersample.provider.READ_WRITE" />
+
 
         <receiver android:name=".ui.widget.IngredientsWidget">
             <intent-filter>
@@ -53,17 +65,14 @@
                 android:resource="@xml/ingredients_widget_info" />
         </receiver>
 
-        <receiver android:name=".ui.widget.IngredientsDataProvider">
-            <intent-filter>
-                <action android:name="xyz.android.amrro.recipes.ui.widget.APP_UPDATE_WIDGET" />
-            </intent-filter>
-        </receiver>
-
         <service
             android:name=".ui.widget.IngredientsListService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <service android:name=".ui.widget.IngredientsUpdateService" />
+
+        <service android:name=".ui.widget.WidgetUpdateService" />
+
+
     </application>
 
 </manifest>

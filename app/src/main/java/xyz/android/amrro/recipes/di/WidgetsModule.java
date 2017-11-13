@@ -2,7 +2,7 @@ package xyz.android.amrro.recipes.di;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
-import xyz.android.amrro.recipes.ui.widget.IngredientsDataProvider;
+import xyz.android.amrro.recipes.data.db.IngredientsContentProvider;
 import xyz.android.amrro.recipes.ui.widget.IngredientsWidget;
 
 /**
@@ -15,6 +15,6 @@ abstract class WidgetsModule {
     abstract IngredientsWidget contributesIngredientsWidget();
 
     @ContributesAndroidInjector
-    abstract IngredientsDataProvider contributesIngredientsDataProvider();
+    abstract IngredientsContentProvider contributesIngredientsContentProvider();
 
 }

@@ -43,7 +43,7 @@ public final class RecipeRepo {
         return Transformations.map(this.recipes(), response -> {
             if (response != null && response.isSuccessful()) {
                 for (Recipe recipe : response.getData()) {
-                    if (recipe.id().equals(id)) return recipe;
+                    if (recipe.id.equals(id)) return recipe;
                 }
             }
             return null;
@@ -51,14 +51,13 @@ public final class RecipeRepo {
     }
 
 
-    // STOPSHIP: 8/9/17 if useless, delete
     @NonNull
     public LiveData<List<Ingredient>> ingredient(@NonNull final Integer id) {
         return Transformations.map(this.recipes(), response -> {
             if (response != null && response.isSuccessful()) {
                 for (Recipe recipe : response.getData()) {
-                    if (recipe.id().equals(id))
-                        return recipe.ingredients();
+                    if (recipe.id.equals(id))
+                        return recipe.ingredients;
                 }
             }
             return new ArrayList<>();
@@ -70,7 +69,7 @@ public final class RecipeRepo {
         return Transformations.map(this.recipes(), response -> {
             if (response != null && response.isSuccessful()) {
                 for (Recipe recipe : response.getData()) {
-                    if (recipe.id().equals(id)) return recipe.steps();
+                    if (recipe.id.equals(id)) return recipe.steps;
                 }
             }
             return new ArrayList<>();

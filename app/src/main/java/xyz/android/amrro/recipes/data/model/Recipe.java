@@ -1,58 +1,20 @@
 package xyz.android.amrro.recipes.data.model;
 
-import com.google.auto.value.AutoValue;
-import com.google.gson.Gson;
-import com.google.gson.TypeAdapter;
-
 import java.util.List;
-
-@AutoValue
-public abstract class Recipe {
-    public static Recipe create(Integer id, String name, List<Ingredient> ingredients, List<Step> steps, Integer servings, String image) {
-        return new AutoValue_Recipe(id, name, ingredients, steps, servings, image);
-    }
-
-    public static TypeAdapter<Recipe> typeAdapter(Gson gson) {
-        return new AutoValue_Recipe.GsonTypeAdapter(gson);
-    }
-
-    public abstract Integer id();
-
-    public abstract String name();
-
-    public abstract List<Ingredient> ingredients();
-
-    public abstract List<Step> steps();
-
-    public abstract Integer servings();
-
-    public abstract String image();
-
-    /*@NonNull
-    final public Integer id;
-    @NonNull
-    final public String name;
-    @NonNull
-    final public List<Ingredient> ingredients;
-    @NonNull
-    final public List<Step> steps;
-    @NonNull
-    final public Integer servings;
-    @NonNull
-    final public String image;
+import java.util.Objects;
 
 
-    public Recipe(@NonNull Integer id,
-                  @NonNull String name,
-                  @NonNull List<Ingredient> ingredients,
-                  @NonNull List<Step> steps,
-                  @NonNull Integer servings,
-                  @NonNull String image) {
+@SuppressWarnings("WeakerAccess")
+public class Recipe {
 
-        Objects.requireNonNull(id);
-        Objects.requireNonNull(name);
-        Objects.requireNonNull(servings);
+    public final Integer id;
+    public final String name;
+    public final List<Ingredient> ingredients;
+    public final List<Step> steps;
+    public final Integer servings;
+    public final String image;
 
+    public Recipe(Integer id, String name, List<Ingredient> ingredients, List<Step> steps, Integer servings, String image) {
         this.id = id;
         this.name = name;
         this.ingredients = ingredients;
@@ -89,5 +51,5 @@ public abstract class Recipe {
                 ", servings=" + servings +
                 ", image='" + image + '\'' +
                 '}';
-    }*/
+    }
 }

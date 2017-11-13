@@ -35,7 +35,7 @@ public class StepsFragment extends RecyclerFragment<Step, StepsAdapter> {
     protected StepsAdapter createAdapter() {
         return new StepsAdapter(step -> {
             if (getArguments() != null && getArguments().getBoolean(KEY_TWO_PANE)) {
-                StepDetailFragment fragment = StepDetailFragment.newInstance(recipeId, step.id());
+                StepDetailFragment fragment = StepDetailFragment.newInstance(recipeId, step.id);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.step_detail_container, fragment)
                         .commit();
@@ -54,7 +54,7 @@ public class StepsFragment extends RecyclerFragment<Step, StepsAdapter> {
         SingleRecipeViewModel model = getViewModel(SingleRecipeViewModel.class);
         model.setId(recipeId).recipe().observe(this, recipe1 -> {
             if (recipe1 != null) {
-                updateAdapter(recipe1.steps());
+                updateAdapter(recipe1.steps);
             }
         });
     }

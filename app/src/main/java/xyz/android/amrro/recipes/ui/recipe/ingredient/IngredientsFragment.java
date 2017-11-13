@@ -1,7 +1,7 @@
 package xyz.android.amrro.recipes.ui.recipe.ingredient;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
@@ -15,9 +15,10 @@ import javax.inject.Inject;
 
 import xyz.android.amrro.recipes.common.Navigator;
 import xyz.android.amrro.recipes.common.RecyclerFragment;
+import xyz.android.amrro.recipes.data.db.IngredientsContentProvider;
 import xyz.android.amrro.recipes.data.model.Ingredient;
 import xyz.android.amrro.recipes.ui.recipe.SingleRecipeViewModel;
-import xyz.android.amrro.recipes.ui.widget.IngredientsDataProvider;
+import xyz.android.amrro.recipes.ui.widget.WidgetUpdateService;
 
 public class IngredientsFragment extends RecyclerFragment<Ingredient, IngredientsAdapter> {
     @Inject
@@ -85,18 +86,28 @@ public class IngredientsFragment extends RecyclerFragment<Ingredient, Ingredient
     }
 
     private void updateWidget(final int recipeId, final List<Ingredient> ingredients) {
+        // delete cached data first.
+        getContext().getContentResolver()
+                .delete(IngredientsContentProvider.URI_INGREDIENT, null, null);
         // cache data.
         cacheIngredients(ingredients);
-        // trigger onDataSetChanged().
-        Intent intent = new Intent();
-        intent.setAction(IngredientsDataProvider.APP_UPDATE_WIDGET);
-        intent.putExtra(IngredientsDataProvider.KEY_RECIPE_ID, recipeId);
-        getActivity().sendBroadcast(intent);
-
     }
 
     private void cacheIngredients(List<Ingredient> ingredients) {
-        String jsonStr = gson.toJson(ingredients);
-        prefs.edit().putString(IngredientsDataProvider.KEY_INGREDIENTS, jsonStr).commit();
+        AsyncTask.execute(() -> {
+            final int count = getContext()
+                    .getContentResolver()
+                    .bulkInsert(IngredientsContentProvider.URI_INGREDIENT, Ingredient.toContentValues(ingredients));
+
+            if (count != ingredients.size()) {
+                throw new IllegalStateException("Inserted values doesn't match");
+            }
+
+           /* Intent intent = new Intent();
+            intent.setAction(IngredientsRemoteViewsFactory.APP_UPDATE_WIDGET);
+            intent.putExtra(IngredientsRemoteViewsFactory.KEY_RECIPE_ID, recipeId);
+            getActivity().sendBroadcast(intent);*/
+            WidgetUpdateService.startActionUpdateWidgets(getContext());
+        });
     }
 }
