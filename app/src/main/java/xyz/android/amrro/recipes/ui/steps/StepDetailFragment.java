@@ -3,6 +3,7 @@ package xyz.android.amrro.recipes.ui.steps;
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingComponent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import javax.inject.Inject;
 import dagger.android.support.AndroidSupportInjection;
 import xyz.android.amrro.recipes.R;
 import xyz.android.amrro.recipes.RecipeVideoPlayer;
+import xyz.android.amrro.recipes.binding.FragmentDataBindingComponent;
 import xyz.android.amrro.recipes.common.BaseFragment;
 import xyz.android.amrro.recipes.data.model.Step;
 import xyz.android.amrro.recipes.databinding.FragmentStepDetailBinding;
@@ -29,6 +31,8 @@ public class StepDetailFragment extends BaseFragment {
     public static final String ARG_STEP_ID = "item_id";
     public static final String ARG_RECIPE_ID = "recipe_id";
     public static final String KEY_LAST_POSITION = "last_position";
+
+    DataBindingComponent component = new FragmentDataBindingComponent(this);
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -55,7 +59,13 @@ public class StepDetailFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_step_detail, container, false);
+        binding = DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_step_detail,
+                container,
+                false,
+                component
+        );
         return binding.getRoot();
     }
 
