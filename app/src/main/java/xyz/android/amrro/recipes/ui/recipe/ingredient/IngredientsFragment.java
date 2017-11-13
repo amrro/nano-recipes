@@ -86,6 +86,9 @@ public class IngredientsFragment extends RecyclerFragment<Ingredient, Ingredient
     }
 
     private void updateWidget(final int recipeId, final List<Ingredient> ingredients) {
+        // delete cached data first.
+        getContext().getContentResolver()
+                .delete(IngredientsContentProvider.URI_INGREDIENT, null, null);
         // cache data.
         cacheIngredients(ingredients);
     }
