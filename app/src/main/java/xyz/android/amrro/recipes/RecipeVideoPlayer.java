@@ -63,9 +63,9 @@ public final class RecipeVideoPlayer implements LifecycleObserver {
             playerView.setPlayer(player);
             player.setPlayWhenReady(playWhenReady);
             player.seekTo(currentWindow, playbackPosition);
+            MediaSource mediaSource = buildMediaSource(Uri.parse(videoUrl));
+            player.prepare(mediaSource, true, false);
         }
-        MediaSource mediaSource = buildMediaSource(Uri.parse(videoUrl));
-        player.prepare(mediaSource, true, false);
     }
 
     private MediaSource buildMediaSource(Uri uri) {
