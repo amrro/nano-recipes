@@ -28,12 +28,14 @@ public class StepDetailFragment extends BaseFragment {
 
     public static final String ARG_STEP_ID = "item_id";
     public static final String ARG_RECIPE_ID = "recipe_id";
+    public static final String KEY_LAST_POSITION = "last_position";
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
 
     private FragmentStepDetailBinding binding;
 
+    private RecipeVideoPlayer player;
     private Integer recipeId;
     private Integer stepId;
 
@@ -66,14 +68,17 @@ public class StepDetailFragment extends BaseFragment {
 
     @SuppressWarnings("ConstantConditions")
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedState) {
+        super.onActivityCreated(savedState);
         if (getArguments().containsKey(ARG_STEP_ID) && getArguments().containsKey(ARG_RECIPE_ID)) {
             recipeId = getArguments().getInt(ARG_RECIPE_ID);
             stepId = getArguments().getInt(ARG_STEP_ID);
             final StepViewModel stepViewModel = ViewModelProviders.of(this, viewModelFactory).get(StepViewModel.class)
                     .setRecipeId(recipeId);
-            stepViewModel.step(stepId).observe(this, this::updateUI);
+            stepViewModel.step(stepId).observe(this, step -> {
+                final long position = savedState != null ? savedState.getLong(KEY_LAST_POSITION) : 0;
+                updateUI(step, position);
+            });
             stepViewModel.hasNext(stepId).observe(this, hasNext -> {
                 binding.setHasNext(hasNext);
                 if (hasNext) {
@@ -89,6 +94,14 @@ public class StepDetailFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (player != null) {
+            outState.putLong(KEY_LAST_POSITION, player.getLastPosition());
+        }
+        super.onSaveInstanceState(outState);
+    }
+
     private void replaceFragment(@NonNull final Integer newId) {
         final StepDetailFragment nextStepFragment = newInstance(recipeId, newId);
         getActivity().getSupportFragmentManager()
@@ -97,15 +110,14 @@ public class StepDetailFragment extends BaseFragment {
                 .commit();
     }
 
-    private void updateUI(@NonNull final Step step) {
-        // TODO: 8/14/17 handle nullity
+    private void updateUI(@NonNull final Step step, final long lastPosition) {
         binding.setStep(step);
         if (! TextUtils.isEmpty(step.videoURL)) {
             binding.setNoVideo(false);
-            final RecipeVideoPlayer player = new RecipeVideoPlayer(
+            player = new RecipeVideoPlayer(
                     getContext(),
                     step.videoURL,
-                    binding.playerView
+                    binding.playerView, lastPosition
             );
             getLifecycle().addObserver(player);
         }

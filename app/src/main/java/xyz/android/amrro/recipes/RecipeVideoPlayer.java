@@ -42,12 +42,14 @@ public final class RecipeVideoPlayer implements LifecycleObserver {
 
     public RecipeVideoPlayer(@NonNull final Context context,
                              @NonNull final String videoUrl,
-                             @NonNull final SimpleExoPlayerView playerView) {
+                             @NonNull final SimpleExoPlayerView playerView,
+                             final long lastPosition) {
         Objects.requireNonNull(context, "Context cannot be null.");
         Objects.requireNonNull(playerView, "playerView cannot be null.");
         this.context = context;
         this.videoUrl = videoUrl;
         this.playerView = playerView;
+        this.playbackPosition = lastPosition;
     }
 
     private void initializePlayer() {
@@ -94,6 +96,9 @@ public final class RecipeVideoPlayer implements LifecycleObserver {
         }
     }
 
+    public long getLastPosition() {
+        return playbackPosition;
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onStart() {
