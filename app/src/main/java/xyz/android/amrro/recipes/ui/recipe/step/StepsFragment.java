@@ -10,9 +10,7 @@ import xyz.android.amrro.recipes.ui.recipe.SingleRecipeViewModel;
 import xyz.android.amrro.recipes.ui.steps.StepDetailFragment;
 
 public class StepsFragment extends RecyclerFragment<Step, StepsAdapter> {
-    public static final String KEY_TWO_PANE = "key-two-pane-view";
     private int recipeId;
-    private boolean isTwoPane;
 
     public StepsFragment() {
         // Required empty public constructor
@@ -22,11 +20,10 @@ public class StepsFragment extends RecyclerFragment<Step, StepsAdapter> {
      * @param id recipe id.
      * @return A new instance of fragment StepsFragment.
      */
-    public static StepsFragment newInstance(final Integer id, final boolean isTwoPane) {
+    public static StepsFragment newInstance(final Integer id) {
         StepsFragment fragment = new StepsFragment();
         Bundle args = new Bundle();
         args.putInt(Navigator.KEY_ITEM_ID, id);
-        args.putBoolean(KEY_TWO_PANE, isTwoPane);
         fragment.setArguments(args);
         return fragment;
     }
@@ -34,7 +31,9 @@ public class StepsFragment extends RecyclerFragment<Step, StepsAdapter> {
     @Override
     protected StepsAdapter createAdapter() {
         return new StepsAdapter(step -> {
-            if (getArguments() != null && getArguments().getBoolean(KEY_TWO_PANE)) {
+            boolean isTablet = getResources().getBoolean(R.bool.is_tablet);
+
+            if (isTablet) {
                 StepDetailFragment fragment = StepDetailFragment.newInstance(recipeId, step.id);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.step_detail_container, fragment)
